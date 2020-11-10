@@ -1,31 +1,23 @@
+
 <template>
-  <page-header-wrapper>
-    <template v-slot:content>
-      <div class="page-header-content">
-        <div class="avatar">
-          <a-avatar size="large" :src="currentUser.avatar"/>
-        </div>
-        <div class="content">
-          <div class="content-title">
-            {{ timeFix }}，{{ user.name }}<span class="welcome-text">，{{ welcome }}</span>
-          </div>
-          <div>前端工程师 | 蚂蚁金服 - 某某某事业群 - VUE平台</div>
-        </div>
-      </div>
-    </template>
-    <template v-slot:extraContent>
-      <div class="extra-content">
-        <div class="stat-item">
-          <a-statistic title="项目数" :value="56" />
-        </div>
-        <div class="stat-item">
-          <a-statistic title="团队内排名" :value="8" suffix="/ 24" />
-        </div>
-        <div class="stat-item">
-          <a-statistic title="项目访问" :value="2223" />
-        </div>
-      </div>
-    </template>
+  <page-view :avatar="avatar" :title="false">
+    <div slot="headerContent">
+      <div class="title">{{ timeFix }}，{{ user.name }}<span class="welcome-text">，{{ welcome() }}</span></div>
+      <div>前端工程师 | 蚂蚁金服 - 某某某事业群 - VUE平台</div>
+    </div>
+    <div slot="extra">
+      <a-row class="more-info">
+        <a-col :span="8">
+          <head-info title="项目数" content="56" :center="false" :bordered="false"/>
+        </a-col>
+        <a-col :span="8">
+          <head-info title="团队排名" content="8/24" :center="false" :bordered="false"/>
+        </a-col>
+        <a-col :span="8">
+          <head-info title="项目访问" content="2,223" :center="false" />
+        </a-col>
+      </a-row>
+    </div>
 
     <div>
       <a-row :gutter="24">
@@ -63,7 +55,7 @@
             <a-list>
               <a-list-item :key="index" v-for="(item, index) in activities">
                 <a-list-item-meta>
-                  <a-avatar slot="avatar" :src="item.user.avatar"/>
+                  <a-avatar slot="avatar" :src="item.user.avatar" />
                   <div slot="title">
                     <span>{{ item.user.nickname }}</span>&nbsp;
                     在&nbsp;<a href="#">{{ item.project.name }}</a>&nbsp;
@@ -91,18 +83,13 @@
               <a>操作四</a>
               <a>操作五</a>
               <a>操作六</a>
-              <a-button size="small" type="primary" ghost icon="plus">添加</a-button>
+              <a-button size="small" ghost icon="plus">添加</a-button>
             </div>
           </a-card>
-          <a-card
-            title="XX 指数"
-            style="margin-bottom: 24px"
-            :loading="radarLoading"
-            :bordered="false"
-            :body-style="{ padding: 0 }">
+          <a-card title="XX 指数" style="margin-bottom: 24px" :loading="radarLoading" :bordered="false" :body-style="{ padding: 0 }">
             <div style="min-height: 400px;">
               <!-- :scale="scale" :axis1Opts="axis1Opts" :axis2Opts="axis2Opts"  -->
-              <radar :data="radarData"/>
+              <radar :data="radarData" />
             </div>
           </a-card>
           <a-card :loading="loading" title="团队" :bordered="false">
@@ -110,7 +97,7 @@
               <a-row>
                 <a-col :span="12" v-for="(item, index) in teams" :key="index">
                   <a>
-                    <a-avatar size="small" :src="item.avatar"/>
+                    <a-avatar size="small" :src="item.avatar" />
                     <span class="member">{{ item.name }}</span>
                   </a>
                 </a-col>
@@ -120,13 +107,15 @@
         </a-col>
       </a-row>
     </div>
-  </page-header-wrapper>
+  </page-view>
 </template>
 
 <script>
 import { timeFix } from '@/utils/util'
-import { mapState } from 'vuex'
-import { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
+import { mapGetters } from 'vuex'
+
+import { PageView } from '@/layouts'
+import HeadInfo from '@/components/tools/HeadInfo'
 import { Radar } from '@/components'
 
 import { getRoleList, getServiceList } from '@/api/manage'
@@ -136,7 +125,8 @@ const DataSet = require('@antv/data-set')
 export default {
   name: 'Workplace',
   components: {
-    PageHeaderWrapper,
+    PageView,
+    HeadInfo,
     Radar
   },
   data () {
@@ -191,16 +181,6 @@ export default {
     }
   },
   computed: {
-    ...mapState({
-      nickname: (state) => state.user.nickname,
-      welcome: (state) => state.user.welcome
-    }),
-    currentUser () {
-      return {
-        name: 'Serati Ma',
-        avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png'
-      }
-    },
     userInfo () {
       return this.$store.getters.userInfo
     }
@@ -209,12 +189,12 @@ export default {
     this.user = this.userInfo
     this.avatar = this.userInfo.avatar
 
-    getRoleList().then(res => {
-      // console.log('workplace -> call getRoleList()', res)
-    })
+    // getRoleList().then(res => {
+    //   console.log('workplace -> call getRoleList()', res)
+    // })
 
     getServiceList().then(res => {
-      // console.log('workplace -> call getServiceList()', res)
+      console.log('workplace -> call getServiceList()', res)
     })
   },
   mounted () {
@@ -224,6 +204,7 @@ export default {
     this.initRadar()
   },
   methods: {
+    ...mapGetters(['nickname', 'welcome']),
     getProjects () {
       this.$http.get('/list/search/projects')
         .then(res => {
@@ -265,8 +246,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  @import "./Workplace.less";
-
   .project-list {
 
     .card-title {
@@ -286,14 +265,12 @@ export default {
         }
       }
     }
-
     .card-description {
       color: rgba(0, 0, 0, 0.45);
       height: 44px;
       line-height: 22px;
       overflow: hidden;
     }
-
     .project-item {
       display: flex;
       margin-top: 8px;
@@ -301,7 +278,6 @@ export default {
       font-size: 12px;
       height: 20px;
       line-height: 20px;
-
       a {
         color: rgba(0, 0, 0, 0.45);
         display: inline-block;
@@ -311,14 +287,12 @@ export default {
           color: #1890ff;
         }
       }
-
       .datetime {
         color: rgba(0, 0, 0, 0.25);
         flex: 0 0 auto;
         float: right;
       }
     }
-
     .ant-card-meta-description {
       color: rgba(0, 0, 0, 0.45);
       height: 44px;
@@ -330,7 +304,6 @@ export default {
   .item-group {
     padding: 20px 0 8px 24px;
     font-size: 0;
-
     a {
       color: rgba(0, 0, 0, 0.65);
       display: inline-block;
@@ -346,7 +319,6 @@ export default {
       margin: 12px 0;
       line-height: 24px;
       height: 24px;
-
       .member {
         font-size: 14px;
         color: rgba(0, 0, 0, .65);
@@ -357,7 +329,6 @@ export default {
         transition: all 0.3s;
         display: inline-block;
       }
-
       &:hover {
         span {
           color: #1890ff;

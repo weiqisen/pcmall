@@ -1,11 +1,12 @@
 /**
  * 项目默认配置项
- * primaryColor - 默认主题色, 如果修改颜色不生效，请清理 localStorage
+ * primaryColor - 默认主题色
  * navTheme - sidebar theme ['dark', 'light'] 两种主题
  * colorWeak - 色盲模式
  * layout - 整体布局方式 ['sidemenu', 'topmenu'] 两种布局
  * fixedHeader - 固定 Header : boolean
  * fixSiderbar - 固定左侧菜单栏 ： boolean
+ * autoHideHeader - 向下滚动时，隐藏 Header : boolean
  * contentWidth - 内容区布局： 流式 |  固定
  *
  * storageOptions: {} - Vue-ls 插件配置项 (localStorage/sessionStorage)
@@ -13,18 +14,25 @@
  */
 
 export default {
+  name: 'OpenCloud',
+  appId: process.env.VUE_APP_ID,
+  appApiKey: process.env.VUE_APP_API_KEY,
+  appSecretKey: process.env.VUE_APP_SECRET_KEY,
+  primaryColor: '#1890FF', // primary color of ant design
   navTheme: 'dark', // theme for nav menu
-  primaryColor: '#52C41A', // primary color of ant design
-  layout: 'sidemenu', // nav menu position: `sidemenu` or `topmenu`
-  contentWidth: 'Fluid', // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
-  fixedHeader: false, // sticky header
-  fixSiderbar: false, // sticky siderbar
+  layout: 'sidemenu', // nav menu position: sidemenu or topmenu
+  contentWidth: 'Fixed', // layout of content: Fluid or Fixed, only works when layout is topmenu
+  fixedHeader: true, // sticky header
+  fixSiderbar: true, // sticky siderbar
+  autoHideHeader: false, //  auto hide header
   colorWeak: false,
-  menu: {
-    locale: true
-  },
-  title: 'Ant Design Pro',
-  pwa: false,
-  iconfontUrl: '',
-  production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true'
+  multiTab: false,
+  production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true',
+  apiUrl: process.env.VUE_APP_API_BASE_URL,
+  // vue-ls options
+  storageOptions: {
+    namespace: 'pro__',
+    name: 'ls',
+    storage: 'local',
+  }
 }

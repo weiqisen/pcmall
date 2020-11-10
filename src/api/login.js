@@ -1,17 +1,6 @@
-import request from '@/utils/request'
-
-const userApi = {
-  Login: '/auth/login',
-  Logout: '/auth/logout',
-  ForgePassword: '/auth/forge-password',
-  Register: '/auth/register',
-  twoStepCode: '/auth/2step-code',
-  SendSms: '/account/sms',
-  SendSmsErr: '/account/sms_err',
-  // get my info
-  UserInfo: '/user/info',
-  UserMenu: '/user/nav'
-}
+import apis from './index'
+import { axios } from '@/utils/request'
+// import { request } from '@/utils/request'
 
 /**
  * login func
@@ -25,45 +14,47 @@ const userApi = {
  * @returns {*}
  */
 export function login (parameter) {
-  return request({
-    url: userApi.Login,
+  console.log(parameter);
+  return axios({
+    url: apis.login.login,
     method: 'post',
     data: parameter
   })
 }
 
-export function getSmsCaptcha (parameter) {
-  return request({
-    url: userApi.SendSms,
+export function logout (token) {
+  return axios({
+    url: apis.login.logout,
+    data: { token: token },
+    method: 'post'
+  })
+}
+
+export function getSmsCaptcha (data) {
+  return axios({
+    url: apis.login.getSmsCaptcha,
     method: 'post',
-    data: parameter
+    data: data
   })
 }
 
-export function getInfo () {
-  return request({
-    url: userApi.UserInfo,
-    method: 'get',
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8'
-    }
-  })
-}
-
-export function getCurrentUserNav () {
-  return request({
-    url: userApi.UserMenu,
+/**
+ * 获取用户信息
+ */
+export const getUserInfo = () => {
+  return axios({
+    url: apis.login.getUserInfo,
     method: 'get'
   })
 }
 
-export function logout () {
-  return request({
-    url: userApi.Logout,
-    method: 'post',
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8'
-    }
+/**
+ * 获取登录用户菜单权限
+ */
+export const getUserMenu = () => {
+  return axios({
+    url: apis.login.getUserMenu,
+    method: 'get'
   })
 }
 
@@ -72,8 +63,9 @@ export function logout () {
  * @param parameter {*}
  */
 export function get2step (parameter) {
-  return request({
-    url: userApi.twoStepCode,
+  console.log(parameter);
+  return axios({
+    url: apis.twoStepCode,
     method: 'post',
     data: parameter
   })

@@ -1,12 +1,12 @@
 <template>
   <div class="page-header-index-wide">
     <a-card :bordered="false" :bodyStyle="{ padding: '16px 0', height: '100%' }" :style="{ height: '100%' }">
-      <div class="account-settings-info-main" :class="{ 'mobile': isMobile }">
+      <div class="account-settings-info-main" :class="device">
         <div class="account-settings-info-left">
           <a-menu
-            :mode="isMobile ? 'horizontal' : 'inline'"
-            :style="{ border: '0', width: isMobile ? '560px' : 'auto'}"
-            :selectedKeys="selectedKeys"
+            :mode="device == 'mobile' ? 'horizontal' : 'inline'"
+            :style="{ border: '0', width: device == 'mobile' ? '560px' : 'auto'}"
+            :defaultSelectedKeys="defaultSelectedKeys"
             type="inner"
             @openChange="onOpenChange"
           >
@@ -49,26 +49,27 @@
 </template>
 
 <script>
-import { RouteView } from '@/layouts'
-import { baseMixin } from '@/store/app-mixin'
+import { PageView, RouteView } from '@/layouts'
+import { mixinDevice } from '@/utils/mixin.js'
 
 export default {
   components: {
-    RouteView
+    RouteView,
+    PageView
   },
-  mixins: [baseMixin],
+  mixins: [mixinDevice],
   data () {
     return {
       // horizontal  inline
       mode: 'inline',
 
       openKeys: [],
-      selectedKeys: [],
+      defaultSelectedKeys: [],
 
       // cropper
       preview: {},
       option: {
-        img: '/avatar2.jpg',
+        img: '/avatar.jpg',
         info: true,
         size: 1,
         outputType: 'jpeg',
@@ -86,7 +87,7 @@ export default {
       pageTitle: ''
     }
   },
-  mounted () {
+  created () {
     this.updateMenu()
   },
   methods: {
@@ -95,12 +96,7 @@ export default {
     },
     updateMenu () {
       const routes = this.$route.matched.concat()
-      this.selectedKeys = [ routes.pop().path ]
-    }
-  },
-  watch: {
-    '$route' (val) {
-      this.updateMenu()
+      this.defaultSelectedKeys = [ routes.pop().path ]
     }
   }
 }

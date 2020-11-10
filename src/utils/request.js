@@ -1,23 +1,23 @@
+import Vue from 'vue'
 import axios from 'axios'
+import qs from 'qs'
 import store from '@/store'
-import storage from 'store'
-import notification from 'ant-design-vue/es/notification'
 import { VueAxios } from './axios'
+import notification from 'ant-design-vue/es/notification'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
+import { sign } from '@/utils/sign'
+import Config from '@/config/defaultSettings'
 
 // 创建 axios 实例
-const request = axios.create({
-  // API 请求的默认前缀
-  baseURL: process.env.VUE_APP_API_BASE_URL,
+const service = axios.create({
+  // baseURL: process.env.VUE_APP_API_BASE_URL, // api base_url
   timeout: 6000 // 请求超时时间
 })
 
-// 异常拦截处理器
-const errorHandler = (error) => {
+const err = (error) => {
   if (error.response) {
     const data = error.response.data
-    // 从 localstorage 获取 token
-    const token = storage.get(ACCESS_TOKEN)
+    const token = Vue.ls.get(ACCESS_TOKEN)
     if (error.response.status === 403) {
       notification.error({
         message: 'Forbidden',
@@ -42,31 +42,61 @@ const errorHandler = (error) => {
 }
 
 // request interceptor
-request.interceptors.request.use(config => {
-  const token = storage.get(ACCESS_TOKEN)
-  // 如果 token 存在
-  // 让每个请求携带自定义 token 请根据实际情况自行修改
-  if (token) {
-    config.headers['Access-Token'] = token
+service.interceptors.request.use(config => {
+  // 参数签名处理
+  // config = sign(config, Config.appApiKey, Config.appSecretKey, 'SHA256')
+  // console.log(config)
+  if(config.method === 'get'){
+    Object.assign(config.params ? config.params : {}, qs.stringify({ ...config.data }))
+  }else{
+    config.data = qs.stringify({ ...config.data })
   }
+
+  const token = Vue.ls.get(ACCESS_TOKEN)
+  if (token) {
+    // 让每个请求携带自定义 token 请根据实际情况自行修改
+    config.headers['Authorization'] = 'Bearer ' + token
+  }
+  config.baseURL = window.serverCfg['baseURL'];
+  console.log(config)
   return config
-}, errorHandler)
+}, err)
 
 // response interceptor
-request.interceptors.response.use((response) => {
-  return response.data
-}, errorHandler)
+service.interceptors.response.use((response) => {
+    if (response.data.code === 0) {
+      // 服务端定义的响应code码为0时请求成功
+      // 使用Promise.resolve 正常响应
+      // return Promise.resolve(response.data)
+      return response.data
+    } else {
+      if(response.headers["content-type"]){
+        return response
+      }
+      // 使用Promise.reject 响应
+      notification.error({
+        message: '错误',
+        description: response.data.message
+      })
+      return Promise.reject(response.data)
+    }
+  }, (error) => {
+    if (error.response && error.response.data) {
+      const result = error.response.data
+      return Promise.reject(result)
+    }
+    return Promise.reject(error)
+  }
+)
 
 const installer = {
   vm: {},
   install (Vue) {
-    Vue.use(VueAxios, request)
+    Vue.use(VueAxios, service)
   }
 }
 
-export default request
-
 export {
   installer as VueAxios,
-  request as axios
+  service as axios
 }

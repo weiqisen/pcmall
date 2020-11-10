@@ -1,42 +1,70 @@
-// with polyfills
-import 'core-js/stable'
-import 'regenerator-runtime/runtime'
+// ie polyfill
+import '@babel/polyfill'
 
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import axios from 'axios'
 import store from './store/'
-import i18n from './locales'
-import { VueAxios } from './utils/request'
-import ProLayout, { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
-import themePluginConfig from '../config/themePluginConfig'
+import {VueAxios} from './utils/request'
 
 // mock
-// WARNING: `mockjs` NOT SUPPORT `IE` PLEASE DO NOT USE IN `production` ENV.
 import './mock'
 
 import bootstrap from './core/bootstrap'
-import './core/lazy_use' // use lazy load components
+import './core/use'
 import './permission' // permission control
 import './utils/filter' // global filter
-import './global.less' // global style
+// 组件引用
+import './libs/use'
 
 Vue.config.productionTip = false
 
-// mount axios to `Vue.$http` and `this.$http`
+// mount axios Vue.$http and this.$http
 Vue.use(VueAxios)
-// use pro-layout components
-Vue.component('pro-layout', ProLayout)
-Vue.component('page-container', PageHeaderWrapper)
-Vue.component('page-header-wrapper', PageHeaderWrapper)
 
-window.umi_plugin_ant_themeVar = themePluginConfig.theme
+//echarts
+import echarts from 'echarts'  //引入echarts
+Vue.prototype.$echarts = echarts  //注册组件
 
-new Vue({
-  router,
-  store,
-  i18n,
-  // init localstorage, vuex
-  created: bootstrap,
-  render: h => h(App)
-}).$mount('#app')
+//百度地图
+import BaiduMap from 'vue-baidu-map'
+Vue.use(BaiduMap, {
+    // ak 是在百度地图开发者平台申请的密钥 详见 http://lbsyun.baidu.com/apiconsole/key */
+    ak: 'yq5PvbxEt9pjDLCGXHbAQC668UQUEZzP'
+})
+
+
+function InitVue () {
+  return new Promise ((resolve, reject) => {
+    axios.get('/serverConfig.json').then((result) => {
+      let config = result.data;
+      window.serverCfg = {};
+      for (let key in config) {
+        window.serverCfg[key] = config[key];
+      }
+      window.vue = new Vue({
+        router,
+        store,
+        created() {
+          bootstrap()
+        },
+        render: h => h(App),
+
+      }).$mount('#app')
+      Vue.ls.set('baseURL',Vue.prototype.baseURL)
+      resolve();
+    }).catch((error) => {
+      window.location
+    })
+  })
+}
+
+async function Run() {
+  await InitVue();
+}
+
+window.onload = async function () {
+  await Run();
+}
+

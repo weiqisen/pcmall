@@ -11,11 +11,7 @@
         ></a-input>
       </a-form-item>
 
-      <a-popover
-        placement="rightTop"
-        :trigger="['focus']"
-        :getPopupContainer="(trigger) => trigger.parentElement"
-        v-model="state.passwordLevelChecked">
+      <a-popover placement="rightTop" trigger="click" :visible="state.passwordLevelChecked">
         <template slot="content">
           <div :style="{ width: '240px' }" >
             <div :class="['user-register', passwordLevelClass]">强度：<span>{{ passwordLevelName }}</span></div>
@@ -26,21 +22,25 @@
           </div>
         </template>
         <a-form-item>
-          <a-input-password
+          <a-input
             size="large"
+            type="password"
             @click="handlePasswordInputClick"
+            autocomplete="false"
             placeholder="至少6位密码，区分大小写"
             v-decorator="['password', {rules: [{ required: true, message: '至少6位密码，区分大小写'}, { validator: this.handlePasswordLevel }], validateTrigger: ['change', 'blur']}]"
-          ></a-input-password>
+          ></a-input>
         </a-form-item>
       </a-popover>
 
       <a-form-item>
-        <a-input-password
+        <a-input
           size="large"
+          type="password"
+          autocomplete="false"
           placeholder="确认密码"
           v-decorator="['password2', {rules: [{ required: true, message: '至少6位密码，区分大小写' }, { validator: this.handlePasswordCheck }], validateTrigger: ['change', 'blur']}]"
-        ></a-input-password>
+        ></a-input>
       </a-form-item>
 
       <a-form-item>
@@ -95,8 +95,8 @@
 </template>
 
 <script>
+import { mixinDevice } from '@/utils/mixin.js'
 import { getSmsCaptcha } from '@/api/login'
-import { deviceMixin } from '@/store/device-mixin'
 
 const levelNames = {
   0: '低',
@@ -120,7 +120,7 @@ export default {
   name: 'Register',
   components: {
   },
-  mixins: [deviceMixin],
+  mixins: [mixinDevice],
   data () {
     return {
       form: this.$form.createForm(this),
@@ -148,6 +148,7 @@ export default {
     }
   },
   methods: {
+
     handlePasswordLevel (rule, value, callback) {
       let level = 0
 
@@ -199,7 +200,7 @@ export default {
     },
 
     handlePasswordInputClick () {
-      if (!this.isMobile) {
+      if (!this.isMobile()) {
         this.state.passwordLevelChecked = true
         return
       }
@@ -207,10 +208,9 @@ export default {
     },
 
     handleSubmit () {
-      const { form: { validateFields }, state, $router } = this
-      validateFields({ force: true }, (err, values) => {
+      const { form: { validateFields }, $router } = this
+      validateFields((err, values) => {
         if (!err) {
-          state.passwordLevelChecked = false
           $router.push({ name: 'registerResult', params: { ...values } })
         }
       })

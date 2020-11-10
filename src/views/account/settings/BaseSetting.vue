@@ -45,7 +45,7 @@
           </a-form-item>
 
           <a-form-item>
-            <a-button type="primary">提交</a-button>
+            <a-button>提交</a-button>
             <a-button style="margin-left: 8px">保存</a-button>
           </a-form-item>
         </a-form>
@@ -63,8 +63,9 @@
 
     </a-row>
 
-    <avatar-modal ref="modal" @ok="setavatar"/>
+    <avatar-modal ref="modal">
 
+    </avatar-modal>
   </div>
 </template>
 
@@ -80,7 +81,7 @@ export default {
       // cropper
       preview: {},
       option: {
-        img: '/avatar2.jpg',
+        img: '/avatar.jpg',
         info: true,
         size: 1,
         outputType: 'jpeg',
@@ -97,9 +98,7 @@ export default {
     }
   },
   methods: {
-    setavatar (url) {
-      this.option.img = url
-    }
+
   }
 }
 </script>
