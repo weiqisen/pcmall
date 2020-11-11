@@ -5,8 +5,8 @@
                 <div class="header">
                     <a href="/">
                         <!--<img src="~@/assets/logo.svg" class="logo" alt="logo">-->
-                        <span class="title">5G</span>
-                        <span class="title" style="margin-left: 0;">智慧物联平台</span>
+                        <span class="title"></span>
+                        <span class="title" style="margin-left: 0;">平台</span>
                     </a>
                 </div>
             </div>

@@ -88,7 +88,7 @@ export default {
     return {
       production: config.production,
       collapsed: false,
-      iconTitle: '5G',
+      iconTitle: 'PC',
       menus: []
     }
   },
@@ -131,7 +131,7 @@ export default {
     ...mapActions(['setSidebar']),
     toggle () {
       this.collapsed = !this.collapsed
-      this.iconTitle = this.collapsed?'IOT':'5G'
+      this.iconTitle = this.collapsed?'PC':'PC'
       this.setSidebar(!this.collapsed)
       triggerWindowResizeEvent()
     },
