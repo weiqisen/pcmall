@@ -88,7 +88,7 @@ export default {
     return {
       production: config.production,
       collapsed: false,
-      iconTitle: 'PC',
+      iconTitle: 'TC',
       menus: []
     }
   },

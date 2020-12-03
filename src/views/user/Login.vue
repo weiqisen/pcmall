@@ -271,7 +271,7 @@
         }
 
         .login-box-body {
-            background: rgba(137, 176, 255, 0.85);
+            background: rgb(255,255,255);
             height: 100%;
             width: 370px;
             padding: 30px 30px 10px 30px;

@@ -19,12 +19,12 @@ export default {
   props: {
     iconTitle: {
       type: String,
-      default: 'PC',
+      default: 'TC',
       required: false
     },
     title: {
       type: String,
-      default: '平台',
+      default: '系统',
       required: false
     },
     showTitle: {

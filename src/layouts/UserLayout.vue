@@ -6,7 +6,7 @@
                     <a href="/">
                         <!--<img src="~@/assets/logo.svg" class="logo" alt="logo">-->
                         <span class="title"></span>
-                        <span class="title" style="margin-left: 0;">平台</span>
+                        <!--<span class="title" style="margin-left: 0;">平台</span>-->
                     </a>
                 </div>
             </div>
@@ -52,7 +52,7 @@
         .container {
             width: 100%;
             min-height: 100%;
-            background: url(~@/assets/background.png) no-repeat 50%;
+            background: url(~@/assets/background.jpg) no-repeat 50%;
             /*background-size: 100%;*/
             padding: 110px 0 144px;
             position: relative;

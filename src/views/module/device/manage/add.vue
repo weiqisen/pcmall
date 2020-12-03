@@ -72,14 +72,14 @@
               label="设备型号分类"
               :labelCol="{lg: {span: 4}, sm: {span: 4}}"
               :wrapperCol="{lg: {span: 14}, sm: {span: 14} }">
-        <a-input
-            autocomplete="off"
-            v-decorator="[
-            'categoryName',
-            {rules: [{ required: true, message: '请输入设备型号分类' }]}
-          ]"
-            name="lat"
-            placeholder="请输入设备型号分类" />
+        <!--<a-input-->
+            <!--autocomplete="off"-->
+            <!--v-decorator="[-->
+            <!--'categoryName',-->
+            <!--{rules: [{ required: true, message: '请输入设备型号分类' }]}-->
+          <!--]"-->
+            <!--name="lat"-->
+            <!--placeholder="请输入设备型号分类" />-->
         <!--<a-tree-select-->
             <!--v-decorator="[-->
               <!--'categoryId',-->
@@ -92,17 +92,17 @@
             <!--allow-clear-->
             <!--@change="handleTreeSelect"-->
         <!--/>-->
-        <!--<a-select-->
-          <!--v-decorator="[-->
-            <!--'categoryId',-->
-            <!--{rules: [{ required: true, message: '请选择设备分类' }]}-->
-          <!--]"-->
-          <!--placeholder="请选择设备型号分类"-->
-          <!--@change="handleChangeSelect"-->
-        <!--&gt;-->
-          <!--<a-select-option v-for="(item, index) in categoryList" :key="index" :value="item.categoryId">-->
-            <!--{{ item.name }}</a-select-option>-->
-        <!--</a-select>-->
+        <a-select
+          v-decorator="[
+            'categoryId',
+            {rules: [{ required: true, message: '请选择设备分类' }]}
+          ]"
+          placeholder="请选择设备型号分类"
+          @change="handleChangeSelect"
+        >
+          <a-select-option v-for="(item, index) in categoryList" :key="index" :value="item.categoryId">
+            {{ item.name }}</a-select-option>
+        </a-select>
       </a-form-item>
       <!--<a-form-item-->
               <!--label="设备分布地"-->

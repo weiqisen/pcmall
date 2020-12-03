@@ -81,7 +81,7 @@
                                 <bar title="数量/台"/>
                             </a-col>
                             <a-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                                <rank-list title="门店销售排行榜" :list="rankList"/>
+                                <rank-list title="设备库存统计" :list="rankList"/>
                             </a-col>
                         </a-row>
                     </a-tab-pane>
