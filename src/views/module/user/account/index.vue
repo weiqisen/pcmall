@@ -6,23 +6,25 @@
           <div class="account-center-avatarHolder">
             <div class="avatar">
               <a-upload
-                      list-type="picture-card"
-                      class="avatar-uploader"
-                      :show-upload-list="false"
-                      :data="handleUploadData"
-                      :before-upload="beforeUpload"
-                      :action="$apis.device.upload"
-                      :headers="header"
-                      name="file"
-                      @change="handleChange"
+                list-type="picture-card"
+                class="avatar-uploader"
+                :show-upload-list="false"
+                :data="handleUploadData"
+                :before-upload="beforeUpload"
+                :action="$apis.device.upload"
+                :headers="header"
+                name="file"
+                @change="handleChange"
               >
-                <img v-if="userInfo.avatar" :src="userInfo.avatar" alt="avatar" />
-                <div v-else>
-                  <a-icon :type="loading ? 'loading' : 'plus'" />
-                  <div class="ant-upload-text">
-                    Upload
-                  </div>
-                </div>
+                <img src="/src/assets/avatar.png" alt="avatar" />
+
+                <!--                <img v-if="userInfo.avatar" :src="userInfo.avatar" alt="avatar" />-->
+                <!--                <div v-else>-->
+                <!--                  <a-icon :type="loading ? 'loading' : 'plus'" />-->
+                <!--                  <div class="ant-upload-text">-->
+                <!--                    Upload-->
+                <!--                  </div>-->
+                <!--                </div>-->
               </a-upload>
             </div>
             <div class="username">{{ userInfo.nickname }}</div>
@@ -64,124 +66,124 @@
 </template>
 
 <script>
-  import { PageView, RouteView } from '@/layouts'
-  import Profile from './form/profile'
-  import MidifyPassword from './form/midify_password'
-  import {ACCESS_TOKEN} from '@/store/mutation-types'
-  import Vue from 'vue'
-  export default {
-    components: {
-      RouteView,
-      PageView,
-      Profile,
-      MidifyPassword
-    },
-    data () {
-      return {
-        header: {
-          'Authorization': 'Bearer ' + Vue.ls.get(ACCESS_TOKEN)
+import { PageView, RouteView } from '@/layouts'
+import Profile from './form/profile'
+import MidifyPassword from './form/midify_password'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
+import Vue from 'vue'
+export default {
+  components: {
+    RouteView,
+    PageView,
+    Profile,
+    MidifyPassword
+  },
+  data () {
+    return {
+      header: {
+        'Authorization': 'Bearer ' + Vue.ls.get(ACCESS_TOKEN)
+      },
+      loading: false,
+      tagInputVisible: false,
+      tagInputValue: '',
+      teams: [],
+      teamSpinning: true,
+      tabListNoTitle: [
+        {
+          key: 'profile',
+          tab: '个人资料'
         },
-        loading: false,
-        tagInputVisible: false,
-        tagInputValue: '',
-        teams: [],
-        teamSpinning: true,
-        tabListNoTitle: [
-          {
-            key: 'profile',
-            tab: '个人资料'
-          },
-          {
-            key: 'midifyPassword',
-            tab: '修改密码'
-          }
-        ],
-        noTitleKey: 'form1',
-        userInfo:'',
-        visible: false
+        {
+          key: 'midifyPassword',
+          tab: '修改密码'
+        }
+      ],
+      noTitleKey: 'form1',
+      userInfo: '',
+      visible: false
+    }
+  },
+  mounted () {
+  },
+  created () {
+    this.getTeams()
+  },
+  methods: {
+    handleUploadData () {
+      const data = {
+        username: this.$store.getters.username,
+        tenantId: this.$store.getters.tenantId,
+        serverName: 'device_manage',
+        groupName: '',
+        fileFlag: '2'
+      }
+      return data
+    },
+    handleChange (info) {
+      if (info.file.status !== 'uploading') {
+        this.loading = true
+      }
+      if (info.file.status === 'done') {
+        this.loading = false
+        if (info.file.response.code === 0) {
+          this.userInfo.avatar = info.file.response.data.fileUrl
+          this.$store.commit('SET_AVATAR', info.file.response.data.fileUrl)
+          // this.$store.commit('setNickName', this.profile.nickName)
+          this.$message.success(`${info.file.name} 文件上传成功！`)
+          this.$http.post(this.$apis.user.updateAvatar, { avatar: info.file.response.data.fileUrl }, this)
+        } else {
+          this.$message.error(`${info.file.name}` + info.file.response.message)
+        }
+      } else if (info.file.status === 'error') {
+        this.$message.error(`${info.file.name} 文件上传失败！`)
+        this.loading = false
       }
     },
-    mounted () {
+    beforeUpload (file) {
+      debugger
+      const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif'
+      if (!isJpgOrPng) {
+        this.$message.error('只能上传jpeg,png,gif图片!')
+      }
+      const isLt2M = file.size / 1024 / 1024 < 2
+      if (!isLt2M) {
+        this.$message.error('Image must smaller than 2MB!')
+      }
+      return isJpgOrPng && isLt2M
     },
-    created () {
+    getTeams () {
+      const that = this
+      this.$http.get(this.$apis.user.queryUser).then(res => {
+        this.userInfo = res.data
+        that.handleTabClick(that.noTitleKey)
+      })
+    },
+
+    handleTabClick (name) {
+      this.$nextTick(() => {
+        this.noTitleKey = name
+        if (name == 'form1') {
+          this.$refs.form1.setData(this.userInfo)
+        } else if (name == 'form2') {
+          this.$refs.form2.setData(this.userInfo)
+        }
+      })
+    },
+    showTagInput () {
+      this.tagInputVisible = true
+      this.$nextTick(() => {
+        this.$refs.tagInput.focus()
+      })
+    },
+
+    handleInputChange (e) {
+      this.tagInputValue = e.target.value
+    },
+    handleOk () {
       this.getTeams()
-    },
-    methods: {
-      handleUploadData() {
-        const data = {
-          username: this.$store.getters.username,
-          tenantId: this.$store.getters.tenantId,
-          serverName: 'device_manage',
-          groupName: '',
-          fileFlag: '2'
-        }
-        return data
-      },
-      handleChange(info) {
-        if (info.file.status !== 'uploading') {
-          this.loading = true;
-        }
-        if (info.file.status === 'done') {
-          this.loading = false
-          if (info.file.response.code === 0) {
-            this.userInfo.avatar = info.file.response.data.fileUrl
-            this.$store.commit('SET_AVATAR', info.file.response.data.fileUrl)
-            // this.$store.commit('setNickName', this.profile.nickName)
-            this.$message.success(`${info.file.name} 文件上传成功！`);
-            this.$http.post(this.$apis.user.updateAvatar, {avatar:info.file.response.data.fileUrl}, this)
-          } else {
-            this.$message.error(`${info.file.name}` + info.file.response.message)
-          }
-        } else if (info.file.status === 'error') {
-          this.$message.error(`${info.file.name} 文件上传失败！`);
-          this.loading = false
-        }
-      },
-      beforeUpload(file) {
-        debugger
-        const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/gif';
-        if (!isJpgOrPng) {
-          this.$message.error('只能上传jpeg,png,gif图片!');
-        }
-        const isLt2M = file.size / 1024 / 1024 < 2;
-        if (!isLt2M) {
-          this.$message.error('Image must smaller than 2MB!');
-        }
-        return isJpgOrPng && isLt2M;
-      },
-      getTeams () {
-        const that = this
-        this.$http.get(this.$apis.user.queryUser).then(res => {
-          this.userInfo = res.data
-          that.handleTabClick(that.noTitleKey)
-        })
-      },
-
-      handleTabClick (name) {
-        this.$nextTick(() => {
-          this.noTitleKey = name
-          if (name == 'form1') {
-            this.$refs.form1.setData(this.userInfo)
-          } else if (name == 'form2') {
-            this.$refs.form2.setData(this.userInfo)
-          }
-        })
-      },
-      showTagInput () {
-        this.tagInputVisible = true
-        this.$nextTick(() => {
-          this.$refs.tagInput.focus()
-        })
-      },
-
-      handleInputChange (e) {
-        this.tagInputValue = e.target.value
-      },
-      handleOk (){
-        this.getTeams()
-      }
     }
   }
+}
 </script>
 
 <style lang="less" scoped>

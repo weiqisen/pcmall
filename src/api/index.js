@@ -23,7 +23,7 @@ const apis = {
     list: '/user/list',
     saveUserRoles: '/user/roles/save',
     getUserRoles: '/user/roles',
-    queryUser:'/current/query/user',
+    queryUser: '/current/query/user',
     log: '/access/log/page'
   },
   device: {

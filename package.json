@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "build:prod": "vue-cli-service build --mode prod",
     "build:preview": "vue-cli-service build --mode preview",
-    "lint": "vue-cli-service lint",
+    "lint": "eslint --fix --ext .js,.vue src",
     "lint:nofix": "vue-cli-service lint --no-fix",
     "test:unit": "vue-cli-service test:unit",
     "postinstall": "opencollective-postinstall"

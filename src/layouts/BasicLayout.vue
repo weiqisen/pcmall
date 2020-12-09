@@ -10,14 +10,14 @@
       @close="drawerClose"
     >
       <side-menu
-            :iconTitle="iconTitle"
-            mode="inline"
-            :menus="menus"
-            :theme="navTheme"
-            :collapsed="false"
-            :collapsible="true"
-            @menuSelect="menuSelect"
-    ></side-menu>
+        :iconTitle="iconTitle"
+        mode="inline"
+        :menus="menus"
+        :theme="navTheme"
+        :collapsed="false"
+        :collapsible="true"
+        @menuSelect="menuSelect"
+      ></side-menu>
     </a-drawer>
 
     <side-menu
@@ -51,7 +51,7 @@
 
       <!-- layout footer -->
       <!--<a-layout-footer>-->
-        <!--<global-footer />-->
+      <!--<global-footer />-->
       <!--</a-layout-footer>-->
 
       <!-- Setting Drawer (show in development mode) -->
@@ -95,7 +95,7 @@ export default {
   computed: {
     ...mapState({
       // 动态主路由
-      mainMenu: state => state.menu.addRouters,
+      mainMenu: state => state.menu.addRouters
     }),
     contentPaddingLeft () {
       if (!this.fixSidebar || this.isMobile()) {
@@ -131,7 +131,7 @@ export default {
     ...mapActions(['setSidebar']),
     toggle () {
       this.collapsed = !this.collapsed
-      this.iconTitle = this.collapsed?'PC':'PC'
+      this.iconTitle = this.collapsed ? 'TC' : 'TC'
       this.setSidebar(!this.collapsed)
       triggerWindowResizeEvent()
     },

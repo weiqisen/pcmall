@@ -7,7 +7,7 @@ import Antd from 'ant-design-vue'
 import Viser from 'viser-vue'
 import VueCropper from 'vue-cropper'
 // import 'ant-design-vue/dist/antd.less'
-import '../assets/device.less'
+import '../assets/tc.less'
 
 // ext library
 import VueClipboard from 'vue-clipboard2'
