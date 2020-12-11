@@ -12,11 +12,11 @@
             </a-col>
             <a-col :md="6" :sm="24" style="padding: 0 3px;">
               <span class="table-page-search-submitButtons">
-                <a-button >
-                  <jihao-icon title="查询" type="icon_search"></jihao-icon>
+                <a-button type="primary">
+                  <tc-icon title="查询" type="icon_search"></tc-icon>
                   查询</a-button>
-                <a-button style="margin-left: 8px" >
-                  <jihao-icon style="color:rgba(0, 0, 0, 0.65);" title="查询" type="icon_clear_query"></jihao-icon>
+                <a-button style="margin-left: 8px" type="primary">
+                  <tc-icon style="color:rgba(0, 0, 0, 0.65);" title="查询" type="icon_clear_query"></tc-icon>
                   重置</a-button>
               </span>
             </a-col>
@@ -27,17 +27,15 @@
       <div class="table-operator">
         <a-button
           type="primary">
-          <jihao-icon
-            style="color:white;"
+          <tc-icon
             title="表格导出"
-            type="iconwenjianshangchuan"></jihao-icon>
+            type="iconwenjianshangchuan"></tc-icon>
           表格导出
         </a-button>
       </div>
       <a-alert
         message="统计：当前月份为12月，课时共计11节，总课时费860元，距离出账日还剩2天"
         type="info"
-        show-icon
       />
       <a-table
         size="default"
@@ -50,11 +48,11 @@
         <span slot="action" slot-scope="text, record">
           <template>
             <a-button style="padding: 0 6px;font-size: 12px;margin-right: 3px;height: 26px;">
-              <jihao-icon style="font-size: 13px;" title="编辑" type="icon_edit_dark"></jihao-icon>
+              <tc-icon style="font-size: 13px;" title="编辑" type="icon_edit_dark"></tc-icon>
               <span style="font-size: 12px;">编辑</span>
             </a-button>
             <a-button style="padding: 0 6px;font-size: 12px;height: 26px;">
-              <jihao-icon style="font-size: 13px;" title="删除" type="icon_delete_device"></jihao-icon>
+              <tc-icon style="font-size: 13px;" title="删除" type="icon_delete_device"></tc-icon>
               <span style="font-size: 12px;">删除</span>
             </a-button>
           </template>
@@ -67,10 +65,7 @@
 <script>
 import { PageView } from '@/layouts'
 import { STable } from '@/components'
-import { getRoleList, getServiceList } from '@/api/manage'
-import { ACCESS_TOKEN } from '@/store/mutation-types'
 import RoleModal from './modal'
-import Vue from 'vue'
 const data = []
 for (let i = 1; i < 60; i += 1) {
   data.push({
@@ -80,7 +75,7 @@ for (let i = 1; i < 60; i += 1) {
     teacherName: '魏其森',
     lessonMoney: '60元/小时',
     lessonContent: '虫儿飞弹唱，分解和弦',
-    lessonStuCount: '1v1',
+    type: '1v1',
     lessonTime: '2020-11-' + Math.floor(Math.random() * 30 + 10) + ' 14:' + Math.floor(Math.random() * 60 + 10) + ':52'
   })
 }
@@ -113,8 +108,8 @@ export default {
           dataIndex: 'lessonMoney'
         },
         {
-          title: '上课人数',
-          dataIndex: 'lessonStuCount'
+          title: '类型',
+          dataIndex: 'type'
         },
         {
           title: '上课时间',

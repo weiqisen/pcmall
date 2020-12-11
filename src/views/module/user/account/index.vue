@@ -30,16 +30,16 @@
             <div class="username">{{ userInfo.nickname }}</div>
           </div>
           <div class="account-center-detail">
-            <p><jihao-icon title="手机" type="icon_tel_gray"/>手机</p>
+            <p><tc-icon title="手机" type="icon_tel_gray"/>手机</p>
             <p>{{ userInfo.mobile }}</p>
             <a-divider style="margin: 15px 0;"/>
-            <p><jihao-icon title="邮箱" type="icon_email"/>邮箱</p>
+            <p><tc-icon title="邮箱" type="icon_email"/>邮箱</p>
             <p style="word-break: break-word;">{{ userInfo.email }}</p>
             <a-divider style="margin: 15px 0;"/>
-            <p><jihao-icon title="城市" type="icon_location_dark"/>城市</p>
+            <p><tc-icon title="城市" type="icon_location_dark"/>城市</p>
             <p style="word-break: break-word;">{{ userInfo.city }} </p>
             <a-divider style="margin: 15px 0;"/>
-            <p><jihao-icon title="简介" type="iconjianjie"/>简介</p>
+            <p><tc-icon title="简介" type="iconjianjie"/>简介</p>
             <p style="word-break: break-word;">{{ userInfo.userDesc }}</p>
             <p></p>
           </div>

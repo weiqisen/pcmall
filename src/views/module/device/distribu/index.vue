@@ -18,10 +18,10 @@
             <a-col :md="4" :sm="24" style="padding: 0 3px;">
               <span class="table-page-search-submitButtons">
                 <a-button @click="handleTableQuery">
-                  <jihao-icon type="icon_search"></jihao-icon>
+                  <tc-icon type="icon_search"></tc-icon>
                   查询</a-button>
                 <a-button style="margin-left: 8px" @click="handleRestQuery">
-                  <jihao-icon type="icon_clear_query"></jihao-icon>
+                  <tc-icon type="icon_clear_query"></tc-icon>
                   重置</a-button>
               </span>
             </a-col>

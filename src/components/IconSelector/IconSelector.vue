@@ -4,7 +4,7 @@
       <a-tab-pane v-for="(v, i) in icons" :tab="v.title" :key="i">
         <ul>
           <li v-for="(icon, key) in v.icons" :key="`${v.title}-${key}`" :class="{ 'active': selectedIcon==icon }">
-            <jihao-icon v-if="icon.indexOf('jihao')!==-1" :type="icon" :style="{ fontSize: '36px' }" @click="handleSelectedIcon(icon)" />
+            <tc-icon v-if="icon.indexOf('jihao')!==-1" :type="icon" :style="{ fontSize: '36px' }" @click="handleSelectedIcon(icon)" />
             <a-icon v-else :type="icon" :style="{ fontSize: '36px' }" @click="handleSelectedIcon(icon)" />
           </li>
         </ul>

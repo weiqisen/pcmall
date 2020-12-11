@@ -1,6 +1,6 @@
 import Menu from 'ant-design-vue/es/menu'
 import Icon from 'ant-design-vue/es/icon'
-import JihaoIcon from "../IconFont";
+import TcIcon from '../IconFont'
 
 const { Item, SubMenu } = Menu
 
@@ -137,13 +137,13 @@ export default {
       typeof (icon) === 'object' ? props.component = icon : props.type = icon
       if (props.type && props.type.startsWith('icon_')) {
         return (
-          <JihaoIcon type={props.type}/>
+          <TcIcon type={props.type}/>
         )
       }
       return (
         <Icon {... { props } }/>
       )
-    },
+    }
 
   },
   render () {

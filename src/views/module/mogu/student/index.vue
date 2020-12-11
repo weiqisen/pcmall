@@ -8,14 +8,14 @@
               <a-date-picker @change="onChange" />
             </a-col>
             <a-col :md="6" :sm="24" style="padding: 0 3px 0 0;">
-              <a-input placeholder="请输入学生姓名/时间" allowClear/>
+              <a-input placeholder="请输入学生姓名" allowClear/>
             </a-col>
             <a-col :md="6" :sm="24" style="padding: 0 3px;">
               <span class="table-page-search-submitButtons">
-                <a-button >
+                <a-button type="primary">
                   <tc-icon title="查询" type="icon_search"></tc-icon>
                   查询</a-button>
-                <a-button style="margin-left: 8px" >
+                <a-button style="margin-left: 8px" type="primary">
                   <tc-icon style="color:rgba(0, 0, 0, 0.65);" title="查询" type="icon_clear_query"></tc-icon>
                   重置</a-button>
               </span>
@@ -28,24 +28,23 @@
         <a-button
           type="primary">
           <tc-icon
-            style="color:white;"
             title="表格导出"
             type="iconwenjianshangchuan"></tc-icon>
           表格导出
         </a-button>
       </div>
       <a-alert
-        message="统计：当前月份为12月，课时共计11节，总课时费860元，距离出账日还剩2天"
+        message="统计：当前活跃学生人数12/人，弹唱5人/，电吉他2/人，指弹3/人"
         type="info"
-        show-icon
       />
       <a-table
-        size="default"
+        size="middle"
         rowKey="key"
         :columns="columns"
         :data-source="data"
         :rowSelection="{ selectedRowKeys: selectedRowKeys , onChange: onSelectChange}"
         bordered
+        :scroll="{x:1400}"
       >
         <span slot="action" slot-scope="text, record">
           <template>
@@ -67,21 +66,20 @@
 <script>
 import { PageView } from '@/layouts'
 import { STable } from '@/components'
-import { getRoleList, getServiceList } from '@/api/manage'
-import { ACCESS_TOKEN } from '@/store/mutation-types'
 import RoleModal from './modal'
-import Vue from 'vue'
 const data = []
 for (let i = 1; i < 60; i += 1) {
   data.push({
-    key: i,
-    // deviceId: Math.floor(Math.random() * 100501+100501)+i,
-    studentName: '学生' + Math.floor(Math.random() * 10 + 3),
+    stuId: i,
+    stuName: '学生' + Math.floor(Math.random() * 10 + 3),
+    stuSex: '男',
+    stuType: '成人',
     teacherName: '魏其森',
-    lessonMoney: '60元/小时',
-    lessonContent: '虫儿飞弹唱，分解和弦',
-    lessonStuCount: '1v1',
-    lessonTime: '2020-11-' + Math.floor(Math.random() * 30 + 10) + ' 14:' + Math.floor(Math.random() * 60 + 10) + ':52'
+    type: '交错式弹唱1v2',
+    takeLessonTime: '非固定',
+    lessonCount: '5/节',
+    note: '喜欢许巍的歌曲',
+    createTime: '2020-11-' + Math.floor(Math.random() * 30 + 10) + ' 14:' + Math.floor(Math.random() * 60 + 10) + ':52'
   })
 }
 export default {
@@ -97,34 +95,45 @@ export default {
       columns: [
         {
           title: '编号',
-          dataIndex: 'key'
+          dataIndex: 'stuId'
         },
         {
-          title: '学生',
-          dataIndex: 'studentName'
+          title: '学生姓名',
+          dataIndex: 'stuName'
         },
         {
-          title: '老师',
-          dataIndex: 'teacherName',
-          scopedSlots: { customRender: 'online' }
+          title: '学生性别',
+          dataIndex: 'stuSex'
         },
         {
-          title: '课时费',
-          dataIndex: 'lessonMoney'
+          title: '学生类型',
+          dataIndex: 'stuType'
         },
         {
-          title: '上课人数',
-          dataIndex: 'lessonStuCount'
+          title: '任课老师',
+          dataIndex: 'teacherName'
         },
         {
-          title: '上课时间',
-          dataIndex: 'lessonTime'
+          title: '课程类型',
+          dataIndex: 'type',
+          scopedSlots: { customRender: 'type' }
         },
         {
-          title: '课程内容',
-          dataIndex: 'lessonContent'
+          title: '约课类型',
+          dataIndex: 'takeLessonTime'
         },
-
+        {
+          title: '已上节数',
+          dataIndex: 'lessonCount'
+        },
+        {
+          title: '备注',
+          dataIndex: 'note'
+        },
+        {
+          title: '录入时间',
+          dataIndex: 'createTime'
+        },
         {
           title: '操作',
           dataIndex: 'action',

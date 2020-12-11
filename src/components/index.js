@@ -21,7 +21,7 @@ import DescriptionList from '@/components/DescriptionList'
 import Tree from '@/components/Tree/Tree'
 import Trend from '@/components/Trend'
 import STable from '@/components/Table'
-import JihaoIcon from '@/components/IconFont'
+import TcIcon from '@/components/IconFont'
 import MultiTab from '@/components/MultiTab'
 import Result from '@/components/Result'
 import IconSelector from '@/components/IconSelector'
@@ -55,7 +55,7 @@ export {
   Tree,
   STable,
   DownloadExcel,
-  JihaoIcon,
+  TcIcon,
   MultiTab,
   Result,
   ExceptionPage,

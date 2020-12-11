@@ -5,18 +5,18 @@
         <a-form layout="inline">
           <a-row :gutter="48" style="margin: 0;">
             <a-col :md="6" :sm="24" style="padding: 0 3px 0 0;">
-                <a-input v-model="queryParam.roleName" placeholder="请输入角色名称" allowClear />
+              <a-input v-model="queryParam.roleName" placeholder="请输入角色名称" allowClear />
             </a-col>
             <a-col :md="6" :sm="24" style="padding: 0 3px;">
-                <a-input v-model="queryParam.roleCode" placeholder="请输入角色编码" allowClear />
+              <a-input v-model="queryParam.roleCode" placeholder="请输入角色编码" allowClear />
             </a-col>
             <a-col :md="6" :sm="24" style="padding: 0 3px;">
               <span class="table-page-search-submitButtons">
                 <a-button @click="handleTableQuery">
-                  <jihao-icon title="查询" type="icon_search"></jihao-icon>
+                  <tc-icon title="查询" type="icon_search"></tc-icon>
                   查询</a-button>
                 <a-button style="margin-left: 8px" @click="handleRestQuery">
-                  <jihao-icon title="重置" type="icon_clear_query"></jihao-icon>
+                  <tc-icon title="重置" type="icon_clear_query"></tc-icon>
                   重置</a-button>
               </span>
             </a-col>
@@ -26,7 +26,7 @@
 
       <div class="table-operator">
         <a-button @mousedown="handleEdit">
-          <jihao-icon title="添加角色" type="icon_add"></jihao-icon>
+          <tc-icon title="添加角色" type="icon_add"></tc-icon>
           角色</a-button>
       </div>
 
@@ -39,17 +39,17 @@
         bordered
       >
         <span slot="status" slot-scope="text">
-            <a-tag :color="text | statusTypeFilter">{{text | statusFilter}}</a-tag>
+          <a-tag :color="text | statusTypeFilter">{{ text | statusFilter }}</a-tag>
         </span>
 
         <span slot="action" slot-scope="text, record">
           <template>
             <a-button @mousedown="handleEdit($event,record)" style="padding: 0 6px;font-size: 12px;margin-right: 3px;height: 26px;">
-              <jihao-icon style="font-size: 13px;" title="编辑" type="icon_edit_dark"></jihao-icon>
+              <tc-icon style="font-size: 13px;" title="编辑" type="icon_edit_dark"></tc-icon>
               <span style="font-size: 12px;">编辑</span>
             </a-button>
             <a-button @mousedown="handleRemove($event,record)" :disabled="record.isSystem === 1" style="padding: 0 6px;font-size: 12px;height: 26px;">
-              <jihao-icon style="font-size: 13px;" title="删除" type="icon_delete_device"></jihao-icon>
+              <tc-icon style="font-size: 13px;" title="删除" type="icon_delete_device"></tc-icon>
               <span style="font-size: 12px;">删除</span>
             </a-button>
           </template>
@@ -66,14 +66,14 @@ import { STable } from '@/components'
 import { getRoleList, getServiceList } from '@/api/manage'
 import RoleModal from './modal'
 const statusMap = {
-    0: {
-        status: '',
-        text: '禁用'
-    },
-    1: {
-        status: 'green',
-        text: '正常'
-    }
+  0: {
+    status: '',
+    text: '禁用'
+  },
+  1: {
+    status: 'green',
+    text: '正常'
+  }
 }
 
 export default {
@@ -148,17 +148,17 @@ export default {
   created () {
   },
   methods: {
-    handleEdit (event,record) {
+    handleEdit (event, record) {
       this.$nextTick(() => {
         this.$refs.modal.edit(record)
       })
       event.preventDefault()
     },
-    handleRemove (event,record) {
+    handleRemove (event, record) {
       this.$http.delete(this.$apis.role.remove, {
         roleId: record.roleId
       }, this).then(res => {
-        this.handleOk ()
+        this.handleOk()
       })
       event.preventDefault()
     },
@@ -174,11 +174,11 @@ export default {
     },
     resetSearchForm () {
     },
-    handleRestQuery (){
+    handleRestQuery () {
       this.queryParam = {}
       this.handleTableQuery()
     },
-    handleTableQuery (){
+    handleTableQuery () {
       this.selectedRowKeys = []
       this.selectedRows = []
       this.$refs.table.refresh(true)
