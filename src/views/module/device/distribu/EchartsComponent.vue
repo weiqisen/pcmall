@@ -6,7 +6,6 @@
 
 <script>
 import echarts from 'echarts'
-
 export default {
   name: 'EchartsComponent',
   props: {
@@ -46,6 +45,7 @@ export default {
   },
   methods: {
     initMap () {
+      debugger
       var myChart = this.$echarts.init(document.getElementById(this.id))
       myChart.setOption({
         tooltip: {
@@ -118,7 +118,7 @@ export default {
 
         }],
         series: [{
-          name: '距离上次间隔天数',
+          name: '距离上次来临间隔天数',
           type: 'line',
           smooth: true, // 是否平滑曲线显示
           symbol: 'circle', // 数据点样式设置

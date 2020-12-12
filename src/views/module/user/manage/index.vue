@@ -9,7 +9,7 @@
                 <a-input v-model="queryParam.userName" placeholder="账号/用户名/手机号/邮箱" allowClear />
               </a-form-item>
             </a-col>
-            <a-col :md="6" :sm="24" style="padding: 0 3px;">
+            <a-col :md="6" :sm="24" style="padding: 0 3px 0 0;">
               <span class="table-page-search-submitButtons">
                 <a-button @click="handleTableQuery">
                   <tc-icon title="查询" type="icon_search"></tc-icon>
@@ -114,6 +114,10 @@ export default {
         {
           title: '邮箱',
           dataIndex: 'email'
+        },
+        {
+          title: '备注',
+          dataIndex: 'userDesc'
         },
         {
           title: '状态',

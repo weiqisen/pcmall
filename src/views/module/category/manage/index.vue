@@ -7,7 +7,7 @@
             <a-col :md="6" :sm="24" style="padding: 0 3px 0 0;">
               <a-input v-model="queryParam.name" placeholder="请输入分类名称" allowClear />
             </a-col>
-            <a-col :md="4" :sm="24" style="padding: 0 3px;">
+            <a-col :md="4" :sm="24" style="padding: 0 3px 0 0;">
               <span class="table-page-search-submitButtons">
                 <a-button @click="handleTableQuery">
                   <tc-icon type="icon_search"></tc-icon>

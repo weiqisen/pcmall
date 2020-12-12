@@ -1,5 +1,6 @@
 import config from '../config/defaultSettings'
 import { axios } from '../utils/request'
+import echarts from 'echarts'
 import apis from '../api'
 import { rules } from '../utils/validate'
 // import store from '../store'
@@ -22,6 +23,7 @@ const Install = {
     // }
 
     // api接口列表
+    Vue.prototype.$echarts = echarts // 注册组件
     Vue.prototype.$apis = apis
 
     // 验证规则
@@ -41,7 +43,7 @@ const Install = {
        */
       get: function (url, params = {}, context) {
         return new Promise((resolve, reject) => {
-          axios.get(url, { params:params }).then(res => {
+          axios.get(url, { params: params }).then(res => {
             resolve(res)
           }).catch(function (err) {
             reject(err)
@@ -51,10 +53,10 @@ const Install = {
       getDown: function (url, params = {}, context) {
         return new Promise((resolve, reject) => {
           const param = {
-            params:params
+            params: params
           }
-          if(context){
-            param.responseType= context
+          if (context) {
+            param.responseType = context
           }
           axios.get(url, param).then(res => {
             resolve(res)
@@ -73,7 +75,7 @@ const Install = {
       post: function (url, data = {}, context) {
         return new Promise((resolve, reject) => {
           let config = {}
-          if(context.config){
+          if (context.config) {
             config = context.config
           }
           axios.post(url, data, config).then(res => {
@@ -103,7 +105,7 @@ const Install = {
                     description: '操作成功',
                     duration: 8
                   })
-                }else{
+                } else {
                   debugger
                   context.$notification.warning({
                     message: '提示',
@@ -141,7 +143,7 @@ const Install = {
                     description: '操作成功',
                     duration: 8
                   })
-                }else{
+                } else {
                   context.$notification.warning({
                     message: '提示',
                     description: res.data.message,

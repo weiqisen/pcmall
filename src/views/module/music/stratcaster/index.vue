@@ -62,7 +62,7 @@ import RoleModal from './modal'
 const data = []
 data.push({
   title: 'Ten word',
-  avatar: './src/assets/avatar.png',
+  avatar: 'http://localhost:8001/avatar.jpg',
   description: 'Joe Satriani,为了纪念9.11事件',
   owner: '魏其森',
   startAt: '2019-07-26 22:44',
@@ -71,10 +71,10 @@ data.push({
   }
 })
 data.push({
-  title: 'Angular',
+  title: 'Where We Started',
   avatar: 'https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png',
-  description: '希望是一个好东西，也许是最好的，好东西是不会消亡的',
-  owner: '曲丽丽',
+  description: 'Guthrie Govan，柔情电吉他抒情曲目',
+  owner: '魏其森',
   startAt: '2018-07-26 22:44',
   progress: {
     value: 54
@@ -122,6 +122,7 @@ export default {
   data () {
     return {
       data,
+      status: 'all',
       columns: [
         {
           title: '编号',
@@ -167,7 +168,9 @@ export default {
   filters: {
   },
   computed: {
-
+    title () {
+      return this.$route.meta.title
+    }
   },
   created () {
   },

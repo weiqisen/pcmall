@@ -7,13 +7,13 @@
             <a-col :md="6" :sm="24" style="padding: 0 3px 0 0;">
               <a-input v-model="queryParam.deviceName" placeholder="请输入设备名称/设备编号" allowClear />
             </a-col>
-            <a-col :md="6" :sm="24" style="padding: 0 3px;">
+            <a-col :md="6" :sm="24" style="padding: 0 3px 0 0;">
               <a-select v-model="queryParam.online" placeholder="请选择设备状态" allowClear>
                 <a-select-option value="1">在线</a-select-option>
                 <a-select-option value="0">离线</a-select-option>
               </a-select>
             </a-col>
-            <a-col :md="4" :sm="24" style="padding: 0 3px;">
+            <a-col :md="4" :sm="24" style="padding: 0 3px 0 0;">
               <span class="table-page-search-submitButtons">
                 <a-button @click="handleTableQuery">
                   <tc-icon type="icon_search"></tc-icon>

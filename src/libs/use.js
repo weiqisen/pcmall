@@ -12,8 +12,7 @@ import VueBus from '../utils/vue-bus'
 import Install from './install'
 import XEUtils from 'xe-utils'
 import VXEUtils from 'vxe-utils'
-// import VXETable from 'vxe-table'
-import {DownloadExcel} from '../components'
+import { DownloadExcel } from '../components'
 
 // import directives
 import './directives/action'
@@ -23,6 +22,7 @@ import './directives/action'
 // import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 // import '../components/index.less'
 import '../assets/IconFont/iconfont.css'
+// import VXETable from 'vxe-table'
 // 按需导入依赖函数库
 Vue.use(VXEUtils, XEUtils)
 

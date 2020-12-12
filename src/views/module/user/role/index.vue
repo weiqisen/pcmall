@@ -7,10 +7,10 @@
             <a-col :md="6" :sm="24" style="padding: 0 3px 0 0;">
               <a-input v-model="queryParam.roleName" placeholder="请输入角色名称" allowClear />
             </a-col>
-            <a-col :md="6" :sm="24" style="padding: 0 3px;">
+            <a-col :md="6" :sm="24" style="padding: 0 3px 0 0;">
               <a-input v-model="queryParam.roleCode" placeholder="请输入角色编码" allowClear />
             </a-col>
-            <a-col :md="6" :sm="24" style="padding: 0 3px;">
+            <a-col :md="6" :sm="24" style="padding: 0 3px 0 0;">
               <span class="table-page-search-submitButtons">
                 <a-button @click="handleTableQuery">
                   <tc-icon title="查询" type="icon_search"></tc-icon>

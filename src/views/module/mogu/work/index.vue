@@ -4,13 +4,13 @@
       <div class="table-page-search-wrapper">
         <a-form layout="inline">
           <a-row :gutter="48" style="margin: 0;">
-            <a-col :md="4" :sm="24" style="padding: 0 3px;">
+            <a-col :md="4" :sm="24" style="padding: 0 3px 0 0;">
               <a-date-picker @change="onChange" />
             </a-col>
             <a-col :md="6" :sm="24" style="padding: 0 3px 0 0;">
               <a-input placeholder="请输入学生姓名/时间" allowClear/>
             </a-col>
-            <a-col :md="6" :sm="24" style="padding: 0 3px;">
+            <a-col :md="6" :sm="24" style="padding: 0 3px 0 0;">
               <span class="table-page-search-submitButtons">
                 <a-button type="primary">
                   <tc-icon title="查询" type="icon_search"></tc-icon>
@@ -134,7 +134,9 @@ export default {
   filters: {
   },
   computed: {
-
+    title () {
+      return this.$route.meta.title
+    }
   },
   created () {
   },
@@ -142,6 +144,13 @@ export default {
 
   },
   methods: {
+    onSelectChange (selectedRowKeys, selectedRows) {
+      this.selectedRowKeys = selectedRowKeys
+      this.selectedRows = selectedRows
+    },
+    onChange (date, dateString) {
+      console.log(date, dateString)
+    }
   }
 }
 </script>

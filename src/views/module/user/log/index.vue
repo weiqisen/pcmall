@@ -9,12 +9,12 @@
                 <a-date-picker style="width:100%;" format="YYYY-MM-DD" v-model="time.start" placeholder="开始日期" allowClear />
               </a-form-item>
             </a-col>
-            <a-col :md="6" :sm="24" style="padding: 0 3px;">
+            <a-col :md="6" :sm="24" style="padding: 0 3px 0 0;">
               <a-form-item label="">
                 <a-date-picker style="width:100%;" format="YYYY-MM-DD" v-model="time.end" placeholder="结束日期" allowClear />
               </a-form-item>
             </a-col>
-            <a-col :md="6" :sm="24" style="padding: 0 3px;">
+            <a-col :md="6" :sm="24" style="padding: 0 3px 0 0;">
               <a-form-item label="">
                 <a-input v-model="queryParam.userName" placeholder="用户名" allowClear />
               </a-form-item>

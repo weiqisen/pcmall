@@ -4,13 +4,13 @@
       <div class="table-page-search-wrapper">
         <a-form layout="inline">
           <a-row :gutter="48" style="margin: 0;">
-            <a-col :md="4" :sm="24" style="padding: 0 3px;">
+            <a-col :md="4" :sm="24" style="padding: 0 3px 0 0;">
               <a-date-picker @change="onChange" />
             </a-col>
             <a-col :md="6" :sm="24" style="padding: 0 3px 0 0;">
               <a-input placeholder="请输入设备Sn" allowClear/>
             </a-col>
-            <a-col :md="6" :sm="24" style="padding: 0 3px;">
+            <a-col :md="6" :sm="24" style="padding: 0 3px 0 0;">
               <span class="table-page-search-submitButtons">
                 <a-button >
                   <tc-icon title="查询" type="icon_search"></tc-icon>
@@ -103,6 +103,9 @@ export default {
   data () {
     return {
       data,
+      exportName: '导出表格',
+      exportData: [],
+      exportFields: {},
       columns: [
         {
           title: '设备型号',
@@ -148,7 +151,9 @@ export default {
   filters: {
   },
   computed: {
-
+    title () {
+      return this.$route.meta.title
+    }
   },
   created () {
   },
@@ -156,6 +161,13 @@ export default {
 
   },
   methods: {
+    onChange (date, dateString) {
+      console.log(date, dateString)
+    },
+    onSelectChange (selectedRowKeys, selectedRows) {
+      this.selectedRowKeys = selectedRowKeys
+      this.selectedRows = selectedRows
+    },
     async handleExcel () {
       if (this.selectedRows && this.selectedRows.length > 0) {
         debugger

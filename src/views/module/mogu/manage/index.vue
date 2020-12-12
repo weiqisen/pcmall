@@ -9,7 +9,7 @@
           <info title="兼职" value="10/月" :bordered="true" />
         </a-col>
         <a-col :sm="6" :xs="24">
-          <info title="总收入" value="80558/元" :bordered="true" />
+          <info title="总收入" value="60415/元" :bordered="true" />
         </a-col>
         <a-col :sm="6" :xs="24">
           <info title="本月收入" value="895/元" />
@@ -49,7 +49,7 @@
                     <tc-icon title="批量导出" type="iconpiliang"></tc-icon>
                     批量导出</a-button>
                 </download-excel>
-                <a-button type="primary" @mousedown="handleDelete" >
+                <a-button type="primary" >
                   <tc-icon title="批量删除" type="icon_delete"></tc-icon>
                   批量删除</a-button>
               </div>
@@ -57,11 +57,10 @@
           </a-row>
         </a-form>
       </div>
-
       <s-table
         ref="table"
         size="default"
-        rowKey="logId"
+        rowKey="salaryId"
         :columns="columns"
         :data="loadData"
         :rowSelection="{ selectedRowKeys: selectedRowKeys , onChange: onSelectChange}"
@@ -89,12 +88,13 @@ import { PageView } from '@/layouts'
 import { STable } from '@/components'
 import RoleModal from './modal'
 import Info from './components/Info'
+import { payer } from '@/mock/tc/tc'
 
 const data = []
 for (let i = 1; i < 60; i += 1) {
   data.push({
     salaryId: i,
-    payer: '蘑菇吉他',
+    payer: payer(),
     receiver: '魏其森',
     money: Math.floor(Math.random() * 5000 + 1000),
     type: 1,
@@ -200,6 +200,9 @@ export default {
   created () {
   },
   methods: {
+    onChange (date, dateString) {
+      console.log(date, dateString)
+    },
     async handleExcel () {
       if (this.selectedRows && this.selectedRows.length > 0) {
         debugger

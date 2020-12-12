@@ -10,7 +10,7 @@ import Config from '@/config/defaultSettings'
 
 // 创建 axios 实例
 const service = axios.create({
-  // baseURL: process.env.VUE_APP_API_BASE_URL, // api base_url
+  baseURL: process.env.VUE_APP_API_BASE_URL, // api base_url
   timeout: 6000 // 请求超时时间
 })
 
@@ -46,9 +46,9 @@ service.interceptors.request.use(config => {
   // 参数签名处理
   // config = sign(config, Config.appApiKey, Config.appSecretKey, 'SHA256')
   // console.log(config)
-  if(config.method === 'get'){
+  if (config.method === 'get') {
     Object.assign(config.params ? config.params : {}, qs.stringify({ ...config.data }))
-  }else{
+  } else {
     config.data = qs.stringify({ ...config.data })
   }
 
@@ -57,36 +57,35 @@ service.interceptors.request.use(config => {
     // 让每个请求携带自定义 token 请根据实际情况自行修改
     config.headers['Authorization'] = 'Bearer ' + token
   }
-  config.baseURL = window.serverCfg['baseURL'];
   console.log(config)
   return config
 }, err)
 
 // response interceptor
 service.interceptors.response.use((response) => {
-    if (response.data.code === 0) {
-      // 服务端定义的响应code码为0时请求成功
-      // 使用Promise.resolve 正常响应
-      // return Promise.resolve(response.data)
-      return response.data
-    } else {
-      if(response.headers["content-type"]){
-        return response
-      }
-      // 使用Promise.reject 响应
-      notification.error({
-        message: '错误',
-        description: response.data.message
-      })
-      return Promise.reject(response.data)
+  if (response.data.code === 0) {
+    // 服务端定义的响应code码为0时请求成功
+    // 使用Promise.resolve 正常响应
+    // return Promise.resolve(response.data)
+    return response.data
+  } else {
+    if (response.headers['content-type']) {
+      return response
     }
-  }, (error) => {
-    if (error.response && error.response.data) {
-      const result = error.response.data
-      return Promise.reject(result)
-    }
-    return Promise.reject(error)
+    // 使用Promise.reject 响应
+    notification.error({
+      message: '错误',
+      description: response.data.message
+    })
+    return Promise.reject(response.data)
   }
+}, (error) => {
+  if (error.response && error.response.data) {
+    const result = error.response.data
+    return Promise.reject(result)
+  }
+  return Promise.reject(error)
+}
 )
 
 const installer = {

@@ -77,7 +77,7 @@ export default {
   data () {
     return {
       mdl: {},
-      dataList3: '',
+      dataList3: [],
       // 高级搜索 展开/关闭
       advanced: false,
       // 查询参数
