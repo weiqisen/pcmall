@@ -45,8 +45,7 @@ export default {
   },
   methods: {
     initMap () {
-      debugger
-      var myChart = this.$echarts.init(document.getElementById(this.id))
+      const myChart = this.$echarts.init(document.getElementById(this.id))
       myChart.setOption({
         tooltip: {
           trigger: 'axis'

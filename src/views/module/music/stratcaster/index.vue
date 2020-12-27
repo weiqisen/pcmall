@@ -62,7 +62,7 @@ import RoleModal from './modal'
 const data = []
 data.push({
   title: 'Ten word',
-  avatar: 'http://localhost:8001/avatar.jpg',
+  avatar: 'http://localhost:8000/avatar.jpg',
   description: 'Joe Satriani,为了纪念9.11事件',
   owner: '魏其森',
   startAt: '2019-07-26 22:44',

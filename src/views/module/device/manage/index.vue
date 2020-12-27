@@ -45,7 +45,6 @@
       <a-alert
         message="统计：当前Suface Pro5共5台，Surface3共8台，总价20050元"
         type="info"
-        show-icon
       />
       <a-table
         size="default"

@@ -21,10 +21,10 @@
             </a-col>
             <a-col :md="6" :sm="24" style="padding: 0 3px;">
               <span class="table-page-search-submitButtons">
-                <a-button @click="$refs.table.refresh(true)">
+                <a-button @click="$refs.table.refresh(true)" type="primary">
                   <tc-icon title="查询" type="icon_search"></tc-icon>
                   查询</a-button>
-                <a-button style="margin-left: 8px" @click="handleReset">
+                <a-button style="margin-left: 8px" @click="handleReset" type="primary">
                   <tc-icon style="color:rgba(0, 0, 0, 0.65);" title="查询" type="icon_clear_query"></tc-icon>
                   重置</a-button>
               </span>

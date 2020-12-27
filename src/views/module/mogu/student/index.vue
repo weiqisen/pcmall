@@ -44,7 +44,7 @@
         :data-source="data"
         :rowSelection="{ selectedRowKeys: selectedRowKeys , onChange: onSelectChange}"
         bordered
-        :scroll="{x:1400}"
+        :scroll="{ x: 1400, y: 550 }"
       >
         <span slot="action" slot-scope="text, record">
           <template>
@@ -94,12 +94,14 @@ export default {
       data,
       columns: [
         {
-          title: '编号',
-          dataIndex: 'stuId'
+          title: '学生姓名',
+          dataIndex: 'stuName',
+          fixed: 'left',
+          width: 120
         },
         {
-          title: '学生姓名',
-          dataIndex: 'stuName'
+          title: '编号',
+          dataIndex: 'stuId'
         },
         {
           title: '学生性别',
@@ -116,7 +118,8 @@ export default {
         {
           title: '课程类型',
           dataIndex: 'type',
-          scopedSlots: { customRender: 'type' }
+          scopedSlots: { customRender: 'type' },
+          width: 150
         },
         {
           title: '约课类型',
@@ -128,11 +131,13 @@ export default {
         },
         {
           title: '备注',
-          dataIndex: 'note'
+          dataIndex: 'note',
+          width: 150
         },
         {
           title: '录入时间',
-          dataIndex: 'createTime'
+          dataIndex: 'createTime',
+          width: 150
         },
         {
           title: '操作',

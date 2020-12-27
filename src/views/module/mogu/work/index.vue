@@ -47,11 +47,11 @@
       >
         <span slot="action" slot-scope="text, record">
           <template>
-            <a-button style="padding: 0 6px;font-size: 12px;margin-right: 3px;height: 26px;">
+            <a-button style="padding: 0 6px;font-size: 12px;margin-right: 3px;height: 26px;" type="primary">
               <tc-icon style="font-size: 13px;" title="编辑" type="icon_edit_dark"></tc-icon>
               <span style="font-size: 12px;">编辑</span>
             </a-button>
-            <a-button style="padding: 0 6px;font-size: 12px;height: 26px;">
+            <a-button style="padding: 0 6px;font-size: 12px;height: 26px;" type="primary">
               <tc-icon style="font-size: 13px;" title="删除" type="icon_delete_device"></tc-icon>
               <span style="font-size: 12px;">删除</span>
             </a-button>

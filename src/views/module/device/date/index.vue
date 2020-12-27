@@ -15,7 +15,7 @@
                 </a-select-option>
               </a-select>
             </a-col>
-            <a-col :md="4" :sm="24" style="padding: 0 3px;">
+            <a-col :md="4" :sm="24" style="padding: 0 3px 0 0;">
               <span class="table-page-search-submitButtons">
                 <a-button @click="handleTableQuery">
                   <tc-icon type="icon_search"></tc-icon>

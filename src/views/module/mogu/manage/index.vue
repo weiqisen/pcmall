@@ -29,10 +29,10 @@
             </a-col>
             <a-col :md="6" :sm="24" style="padding: 0 3px;">
               <span class="table-page-search-submitButtons">
-                <a-button @click="handleTableQuery">
+                <a-button @click="handleTableQuery" type="primary">
                   <tc-icon title="查询" type="icon_search"></tc-icon>
                   查询</a-button>
-                <a-button style="margin-left: 8px" @click="handleRestQuery">
+                <a-button style="margin-left: 8px" @click="handleRestQuery" type="primary">
                   <tc-icon style="color:rgba(0, 0, 0, 0.65);" title="查询" type="icon_clear_query"></tc-icon>
                   重置</a-button>
               </span>

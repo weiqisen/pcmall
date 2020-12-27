@@ -12,10 +12,10 @@
             </a-col>
             <a-col :md="6" :sm="24" style="padding: 0 3px 0 0;">
               <span class="table-page-search-submitButtons">
-                <a-button @click="handleTableQuery">
+                <a-button @click="handleTableQuery" type="primary">
                   <tc-icon title="查询" type="icon_search"></tc-icon>
                   查询</a-button>
-                <a-button style="margin-left: 8px" @click="handleRestQuery">
+                <a-button style="margin-left: 8px" @click="handleRestQuery" type="primary">
                   <tc-icon title="重置" type="icon_clear_query"></tc-icon>
                   重置</a-button>
               </span>
@@ -25,9 +25,9 @@
       </div>
 
       <div class="table-operator">
-        <a-button @mousedown="handleEdit">
-          <tc-icon title="添加角色" type="icon_add"></tc-icon>
-          角色</a-button>
+        <a-button @mousedown="handleEdit" type="primary">
+          <tc-icon title="添加角色" type="tc-tianjia"></tc-icon>
+          新建角色</a-button>
       </div>
 
       <s-table
@@ -39,9 +39,9 @@
         bordered
       >
         <span slot="status" slot-scope="text">
-          <a-tag :color="text | statusTypeFilter">{{ text | statusFilter }}</a-tag>
+          <a-tag v-if="text===1" :style="{background: '#E6F7FF',border: '1px solid #91D5FF',color:'#1890FF'}">正常</a-tag>
+          <a-tag v-if="text===0" :style="{background: '#FFF1F0',border: '1px solid #FFA39E',color:'#FF4D4F'}">禁用</a-tag>
         </span>
-
         <span slot="action" slot-scope="text, record">
           <template>
             <a-button @mousedown="handleEdit($event,record)" style="padding: 0 6px;font-size: 12px;margin-right: 3px;height: 26px;">
