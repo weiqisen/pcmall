@@ -48,7 +48,9 @@ service.interceptors.request.use(config => {
   // console.log(config)
   if (config.method === 'get') {
     Object.assign(config.params ? config.params : {}, qs.stringify({ ...config.data }))
-  } else {
+  } else if (config.method === 'delete') {
+    // application/x-www-form-urlencoded
+    config.headers.delete['Content-Type'] = 'application/x-www-form-urlencoded'
     config.data = qs.stringify({ ...config.data })
   }
 
@@ -57,7 +59,6 @@ service.interceptors.request.use(config => {
     // 让每个请求携带自定义 token 请根据实际情况自行修改
     config.headers['Authorization'] = 'Bearer ' + token
   }
-  console.log(config)
   return config
 }, err)
 
@@ -66,9 +67,20 @@ service.interceptors.response.use((response) => {
   if (response.data.code === 0) {
     // 服务端定义的响应code码为0时请求成功
     // 使用Promise.resolve 正常响应
-    // return Promise.resolve(response.data)
-    return response.data
+    return Promise.resolve(response.data)
+    // return response.data
   } else {
+    if (response.data) {
+      if (response.data.code === 0) {
+        return Promise.resolve(response.data)
+      } else {
+        notification.error({
+          message: '错误',
+          description: response.data.message
+        })
+        return Promise.reject(response.data)
+      }
+    }
     if (response.headers['content-type']) {
       return response
     }
@@ -82,6 +94,10 @@ service.interceptors.response.use((response) => {
 }, (error) => {
   if (error.response && error.response.data) {
     const result = error.response.data
+    notification.error({
+      message: '错误',
+      description: result.message
+    })
     return Promise.reject(result)
   }
   return Promise.reject(error)

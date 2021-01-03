@@ -149,7 +149,6 @@ export default {
       this.selectedRows = selectedRows
     },
     onChange (date, dateString) {
-      console.log(date, dateString)
     }
   }
 }

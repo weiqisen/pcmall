@@ -14,7 +14,6 @@ import { axios } from '@/utils/request'
  * @returns {*}
  */
 export function login (parameter) {
-  console.log(parameter);
   return axios({
     url: apis.login.login,
     method: 'post',
@@ -63,7 +62,7 @@ export const getUserMenu = () => {
  * @param parameter {*}
  */
 export function get2step (parameter) {
-  console.log(parameter);
+  console.log(parameter)
   return axios({
     url: apis.twoStepCode,
     method: 'post',

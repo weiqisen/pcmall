@@ -7,12 +7,12 @@
         :labelCol="{lg: {span: 7}, sm: {span: 7}}"
         :wrapperCol="{lg: {span: 14}, sm: {span: 17} }">
         <div style="height: 350px;overflow: auto;">
-            <a-tree
-              checkable
-              v-model="checkRowKeys"
-              :treeData="selectMenus"
-              @check="getCheckedAuthorities"
-              :replaceFields="replaceFields"/>
+          <a-tree
+            checkable
+            v-model="checkRowKeys"
+            :treeData="selectMenus"
+            @check="getCheckedAuthorities"
+            :replaceFields="replaceFields"/>
         </div>
       </a-form-item>
     </a-form>
@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import moment from 'moment';
+import moment from 'moment'
 export default {
   name: 'RoleAuth',
-  components:{
+  components: {
     moment
   },
   data () {
@@ -34,9 +34,9 @@ export default {
       checkRowKeys: [],
       formItem: this.getFormItem(),
       form: this.$form.createForm(this),
-      replaceFields:{
-        key:'menuId',
-        title:'menuName'
+      replaceFields: {
+        key: 'menuId',
+        title: 'menuName'
       }
     }
   },
@@ -54,14 +54,14 @@ export default {
         Object.assign(this.formItem, {
           roleId: data.roleId
         })
-        this.handleLoadRoleGranted(data.roleType,data.roleId)
+        this.handleLoadRoleGranted(data.roleType, data.roleId)
       }
     },
     handleReset () {
       this.form.resetFields()
       this.formItem = this.getFormItem()
-      this.submitMenus=[]
-      this.checkRowKeys=[]
+      this.submitMenus = []
+      this.checkRowKeys = []
     },
     /* 提交授权 */
     handleSubmit () {
@@ -72,13 +72,13 @@ export default {
               roleId: this.formItem.roleId,
               menuIds: this.submitMenus.join(',')
             }, this).then(res => {
-              if(res.code===0) {
+              if (res.code === 0) {
                 this.$notification.success({
                   message: '提示',
                   description: '操作成功',
                   duration: 8
                 })
-              }else{
+              } else {
                 this.$notification.error({
                   message: '提示',
                   description: res.data.message
@@ -95,47 +95,47 @@ export default {
       })
     },
     /* 获取已选择节点 */
-    getCheckedAuthorities (node,event) {
+    getCheckedAuthorities (node, event) {
       const checkArray = []
       checkArray.push(...node)
       checkArray.push(...event.halfCheckedKeys)
       this.submitMenus = checkArray
     },
     /* 加载权限 */
-    handleLoadRoleGranted (roleType,roleId) {
+    handleLoadRoleGranted (roleType, roleId) {
       if (!roleId) {
         return
       }
       const that = this
-      this.$http.get(this.$apis.role.authorityMenu, {roleType: roleType,roleId:roleId}, this).then(res => {
-        that.selectMenus = that.render(res.data.roleMenuAllList,'0')
+      this.$http.get(this.$apis.role.authorityMenu, { roleType: roleType, roleId: roleId }, this).then(res => {
+        that.selectMenus = that.render(res.data.roleMenuAllList, '0')
         that.checkRowKeys = res.data.roleMenuGrantLeafList
         that.submitMenus = res.data.roleMenuGrantHalfList
       })
     },
-    render(data,parentId,parentName){
+    render (data, parentId, parentName) {
+      debugger
       const children = []
       const parent = []
       if (!data) return null
-      for(var i = 0; i < data.length;i++){
-        if(data[i].parentId===parentId){
-          if(parentName){
+      for (var i = 0; i < data.length; i++) {
+        if (data[i].parentId === parentId) {
+          if (parentName) {
             data[i].parentName = parentName
           }
           parent.push(data[i])
-        }else{
+        } else {
           children.push(data[i])
         }
       }
-      if(parent.length>0){
-        for(var t = 0; t<parent.length;t++){
-          const tt = this.render(children,parent[t].menuId,parent[t].menuName)
-          if(tt && tt.length>0){
-            parent[t].children=tt
-          }else{
-            parent[t].children=null
+      if (parent.length > 0) {
+        for (var t = 0; t < parent.length; t++) {
+          const tt = this.render(children, parent[t].menuId, parent[t].menuName)
+          if (tt && tt.length > 0) {
+            parent[t].children = tt
+          } else {
+            parent[t].children = null
           }
-
         }
       }
       return parent

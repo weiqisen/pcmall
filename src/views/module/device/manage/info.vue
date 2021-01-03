@@ -108,8 +108,6 @@ export default {
                       const widthRatio = item1.distribuImgW / that.distribuImgW
                       item1.distribuImgX = item1.distribuImgX / widthRatio
                       item1.distribuImgY = item1.distribuImgY / widthRatio
-                      console.log(item1.distribuImgX)
-                      console.log(item1.distribuImgY)
                     }
                     that.deviceList.push(item1)
                   })

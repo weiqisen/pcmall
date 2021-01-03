@@ -1,39 +1,39 @@
 <template>
-    <div id="userLayout" :class="['user-layout-wrapper', device]">
-        <div class="container">
-            <div class="top">
-                <div class="header">
-                    <a href="/">
-                        <!--<img src="~@/assets/logo.svg" class="logo" alt="logo">-->
-                        <span class="title"></span>
-                        <!--<span class="title" style="margin-left: 0;">平台</span>-->
-                    </a>
-                </div>
-            </div>
-
-            <route-view></route-view>
+  <div id="userLayout" :class="['user-layout-wrapper', device]">
+    <div class="container">
+      <div class="top">
+        <div class="header">
+          <a href="/">
+            <!--<img src="~@/assets/logo.svg" class="logo" alt="logo">-->
+            <span class="title"></span>
+            <!--<span class="title" style="margin-left: 0;">平台</span>-->
+          </a>
         </div>
+      </div>
+
+      <route-view></route-view>
     </div>
+  </div>
 </template>
 
 <script>
-    import RouteView from './RouteView'
-    import {mixinDevice} from '@/utils/mixin'
+import RouteView from './RouteView'
+import { mixinDevice } from '@/utils/mixin'
 
-    export default {
-        name: 'UserLayout',
-        components: {RouteView},
-        mixins: [mixinDevice],
-        data() {
-            return {}
-        },
-        mounted() {
-            document.body.classList.add('userLayout')
-        },
-        beforeDestroy() {
-            document.body.classList.remove('userLayout')
-        }
-    }
+export default {
+  name: 'UserLayout',
+  components: { RouteView },
+  mixins: [mixinDevice],
+  data () {
+    return {}
+  },
+  mounted () {
+    document.body.classList.add('userLayout')
+  },
+  beforeDestroy () {
+    document.body.classList.remove('userLayout')
+  }
+}
 </script>
 
 <style lang="less" scoped>
@@ -52,7 +52,7 @@
         .container {
             width: 100%;
             min-height: 100%;
-            background: url(~@/assets/background.jpg) no-repeat 50%;
+            background: url(~@/assets/background.png) no-repeat 50%;
             /*background-size: 100%;*/
             padding: 110px 0 144px;
             position: relative;

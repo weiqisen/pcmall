@@ -60,7 +60,6 @@ const Install = {
        */
       post: function (url, data = {}, context) {
         return new Promise((resolve, reject) => {
-          debugger
           let config = {}
           if (context.config) {
             config = context.config
@@ -156,7 +155,6 @@ const Install = {
               axios.post(url, data).then(res => {
                 resolve(res)
               }).catch(function (err) {
-                debugger
                 reject(err)
               })
             }

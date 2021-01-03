@@ -32,12 +32,12 @@ function filterAsyncRouter (array, authorities) {
 function filterRouter (array, authorities, routers) {
   const list = array.map(item => {
     const has = hasChild(item)
-    if(item.level===1){
-      if(has){
-        item.children.map(itemchil =>{
-          if(itemchil.level===2){
+    if (item.level === 1) {
+      if (has) {
+        item.children.map(itemchil => {
+          if (itemchil.level === 2) {
             const has2 = hasChild(item)
-            if(has2){
+            if (has2) {
               item.children.push(...itemchil.children)
               itemchil.children = []
             }
@@ -52,24 +52,23 @@ function filterRouter (array, authorities, routers) {
       // 使用菜单id不使用menuCode防止修改后,刷新后缓存的页面无法找到
       name: menuCode,
       path: url,
-      hidden: item.level===3?true:false,
+      hidden: item.level === 3,
       redirect: '',
       meta: {
         level: item.level,
         authorities: authorities,
         title: item.menuName,
-        keepAlive: item.cache===0?false:true,
+        keepAlive: item.cache !== 0,
         icon: item.icon || (has ? 'folder' : '')
       }
     }
-    console.log(router)
     // 非根节点
     if (item.scheme === '/') {
       // 内部组件
       router.component = (resolve) => {
         if (path) {
           require([`@/views/module/${path}.vue`], resolve)
-        }else{
+        } else {
           require([`@/views/exception/404.vue`], resolve)
         }
       }
@@ -77,7 +76,6 @@ function filterRouter (array, authorities, routers) {
       // 外部链接
       router.meta.target = item.target
     }
-    console.log(router);
     if (has) {
       router.component = constantRouterComponents['RouteView']
       router.redirect = item.children[0].menuCode
@@ -116,7 +114,6 @@ const menu = {
         defaultRouterMap[0].children.splice(0, 0, ...routers)
         // 最后加入404
         defaultRouterMap.push(notFoundRouter)
-        console.log(defaultRouterMap)
         commit('SET_ROUTERS', defaultRouterMap)
         resolve()
       })

@@ -26,9 +26,6 @@ router.beforeEach((to, from, next) => {
   to.meta && (typeof to.meta.title !== 'undefined' && setDocumentTitle(`${to.meta.title}`))
   if (Vue.ls.get(ACCESS_TOKEN)) {
     /* has token */
-    console.log(store.getters.addRouters)
-    console.log(to)
-    console.log(from)
     if (to.path === '/user/login') {
       next({ path: '/' })
       NProgress.done()
@@ -40,17 +37,16 @@ router.beforeEach((to, from, next) => {
             // 动态新增可访问路由表
             router.addRoutes(store.getters.addRouters)
             let toaccess = false
-            store.getters.addRouters.forEach(item=>{
-              if(item.path==='/'){
-                if(item.children.length<=3){
-
+            store.getters.addRouters.forEach(item => {
+              if (item.path === '/') {
+                if (item.children.length <= 3) {
                   toaccess = true
                 }
               }
             })
-            if(toaccess){
+            if (toaccess) {
               next({ path: '/account' })
-            }else{
+            } else {
               // 跳转到目的路由
               next({ path: to.path })
             }

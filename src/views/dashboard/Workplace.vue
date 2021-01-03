@@ -194,7 +194,6 @@ export default {
     // })
 
     getServiceList().then(res => {
-      console.log('workplace -> call getServiceList()', res)
     })
   },
   mounted () {
