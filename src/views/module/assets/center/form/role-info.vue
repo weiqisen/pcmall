@@ -26,18 +26,18 @@
           placeholder="请输入角色编码" />
       </a-form-item>
       <a-form-item
-              label="角色平台"
-              :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-              :wrapperCol="{lg: {span: 14}, sm: {span: 14} }">
-          <a-select
-            v-decorator="[
-              'roleType',
-              {rules: [{ required: true, message: '请选择角色平台' }]}
-            ]"
-            placeholder="请选择角色平台">
-            <a-select-option value="1">系统管理</a-select-option>
-            <a-select-option value="10">设备管理</a-select-option>
-          </a-select>
+        label="角色平台"
+        :labelCol="{lg: {span: 7}, sm: {span: 7}}"
+        :wrapperCol="{lg: {span: 14}, sm: {span: 14} }">
+        <a-select
+          v-decorator="[
+            'roleType',
+            {rules: [{ required: true, message: '请选择角色平台' }]}
+          ]"
+          placeholder="请选择角色平台">
+          <a-select-option value="1">系统管理</a-select-option>
+          <a-select-option value="10">设备管理</a-select-option>
+        </a-select>
       </a-form-item>
       <a-form-item
         label="状态"
@@ -111,7 +111,7 @@ export default {
           roleCode: data.roleCode,
           roleName: data.roleName,
           roleType: data.roleType,
-          status: data.status + "",
+          status: data.status + '',
           roleDesc: data.roleDesc
         })
         this.isAdd = false
@@ -121,7 +121,7 @@ export default {
       }
       const { form: { setFieldsValue } } = this
       this.$nextTick(() => {
-        setFieldsValue(pick(this.formItem, ['roleCode','roleType','roleName','status','roleDesc']))
+        setFieldsValue(pick(this.formItem, ['roleCode', 'roleType', 'roleName', 'status', 'roleDesc']))
       })
     },
     handleReset () {
@@ -139,7 +139,7 @@ export default {
               status: values.status,
               roleDesc: values.roleDesc
             })
-            values.roleId=this.formItem.roleId
+            values.roleId = this.formItem.roleId
             this.$http.post(this.$apis.role.save, this.formItem, this).then(res => {
               resolve(res)
             }).catch(function (err) {

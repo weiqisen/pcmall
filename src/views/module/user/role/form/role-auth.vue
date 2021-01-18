@@ -108,7 +108,7 @@ export default {
       }
       const that = this
       this.$http.get(this.$apis.role.authorityMenu, { roleType: roleType, roleId: roleId }, this).then(res => {
-        that.selectMenus = that.render(res.data.roleMenuAllList, '0')
+        that.selectMenus = that.render(res.data.roleMenuAllList, 0)
         that.checkRowKeys = res.data.roleMenuGrantLeafList
         that.submitMenus = res.data.roleMenuGrantHalfList
       })

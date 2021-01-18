@@ -156,7 +156,7 @@ export default {
         </a-tab-pane>)
     })
 
-/*    return (
+    /*    return (
       <div class="ant-pro-multi-tab">
         <div class="ant-pro-multi-tab-wrapper">
           <a-tabs
@@ -169,7 +169,7 @@ export default {
           </a-tabs>
         </div>
       </div>
-    )*/
+    ) */
   }
 }
 </script>

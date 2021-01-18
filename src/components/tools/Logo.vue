@@ -2,7 +2,7 @@
   <div class="logo">
     <router-link :to="{name:'home'}">
       <!--<LogoSvg alt="logo" />-->
-      <h1 class="title" style="margin-left: 0;">{{iconTitle}}</h1>
+      <h1 class="title" style="margin-left: 0;">{{ iconTitle }}</h1>
       <h1 v-if="showTitle" style="margin-left: 0;">{{ title }}</h1>
     </router-link>
   </div>

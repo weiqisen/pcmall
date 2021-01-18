@@ -157,7 +157,7 @@ export default {
         for (var s = 0; s < res.data.length; s++) {
           Object.assign(res.data[s], { children: [''] })
         }
-        that.data = this.render(res.data, '0')
+        that.data = this.render(res.data, 0)
       })
     },
     render (data, parentId, parentName) {

@@ -49,10 +49,10 @@ export const sign = (config, apiKey, secretKey, signType) => {
     return !XEUtils.isNull(data[k])
   }).map(k => {
     const v = data[k]
-    if(typeof(v)==="undefined"){
+    if (typeof (v) === 'undefined') {
       // 参数值为空，则不参与签名
       str = str + k + '=&'
-    }else{
+    } else {
       str = str + k + '=' + v + '&'
     }
   })

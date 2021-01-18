@@ -77,12 +77,12 @@ export const rules = {
   }, { validator: validateEn, trigger: 'blur' }],
   email: [
     { required: false, type: 'email', message: '邮箱格式不正确', trigger: 'blur' },
-    {validator: validateEmail, trigger: 'blur'}
+    { validator: validateEmail, trigger: 'blur' }
   ],
-  name:{ validator: validateName, trigger: 'blur' },
-  nickName:{ validator: validateNickName, trigger: 'blur' },
-  char0to255Desc:{ validator: validateChar0to255Desc, trigger: 'blur' },
-  char0to100Desc:{ validator: validateChar0to100Desc, trigger: 'blur' },
+  name: { validator: validateName, trigger: 'blur' },
+  nickName: { validator: validateNickName, trigger: 'blur' },
+  char0to255Desc: { validator: validateChar0to255Desc, trigger: 'blur' },
+  char0to100Desc: { validator: validateChar0to100Desc, trigger: 'blur' },
   // 验证自然数
   naturalNumber: /^(([0-9]*[1-9][0-9]*)|(0+))$/,
   naturalNumberMsg: '请输入自然数',
@@ -121,9 +121,9 @@ export const rules = {
   char0to100Msg: '请输入100位以内的字符',
   char0to255: /^.{0,255}$/,
   char0to255Msg: '请输入255位以内的字符',
-  numForDotTwo:/^(\d+|\d+\.\d{1,2})$/,
+  numForDotTwo: /^(\d+|\d+\.\d{1,2})$/,
   numForDotTwoMsg: '请输入为保留2位的数值',
-  numForDotFour:/^(\d+|\d+\.\d{1,4})$/,
+  numForDotFour: /^(\d+|\d+\.\d{1,4})$/,
   numForDotFourMsg: '请输入为保留4位的数值',
   cnEnNumSpace4to30: /^(?!_)(?!.*?_$)[-_a-zA-Z0-9\u4E00-\u9FA5]{4,30}$/,
   cnEnNumSpace4to30Msg: '请输入数字，字母，汉字，下划线及破折号',

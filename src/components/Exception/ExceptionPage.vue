@@ -38,7 +38,7 @@ export default {
     handleToHome () {
       this.$router.push({ path: '/' })
     },
-    handleToAccount (){
+    handleToAccount () {
       this.$router.push({ path: '/account/center' })
     }
   }

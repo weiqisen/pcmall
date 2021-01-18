@@ -8,32 +8,32 @@
         <a-transfer
           :dataSource="selectUsers"
           :listStyle="{
-                      width: '40%',
-                      height: '350px',
-                    }"
+            width: '40%',
+            height: '350px',
+          }"
           :targetKeys="formItem.userIds"
           @change="handleTransferChange"
           :render="item=>`${item.title}`">
-                  <span slot="notFoundContent">
-                    没数据
-                  </span>
+          <span slot="notFoundContent">
+            没数据
+          </span>
         </a-transfer>
       </a-form-item>
     </a-form>
 
-<!--    <Form ref="form" :model="formItem">-->
-<!--      <FormItem prop="authorities">-->
-<!--        <Transfer-->
-<!--          :data="selectUsers"-->
-<!--          :list-style="{width: '45%',height: '480px'}"-->
-<!--          :titles="['选择用户', '已选择用户']"-->
-<!--          :render-format="transferRender"-->
-<!--          :target-keys="formItem.userIds"-->
-<!--          @on-change="handleTransferChange"-->
-<!--          filterable>-->
-<!--        </Transfer>-->
-<!--      </FormItem>-->
-<!--    </Form>-->
+    <!--    <Form ref="form" :model="formItem">-->
+    <!--      <FormItem prop="authorities">-->
+    <!--        <Transfer-->
+    <!--          :data="selectUsers"-->
+    <!--          :list-style="{width: '45%',height: '480px'}"-->
+    <!--          :titles="['选择用户', '已选择用户']"-->
+    <!--          :render-format="transferRender"-->
+    <!--          :target-keys="formItem.userIds"-->
+    <!--          @on-change="handleTransferChange"-->
+    <!--          filterable>-->
+    <!--        </Transfer>-->
+    <!--      </FormItem>-->
+    <!--    </Form>-->
   </div>
 </template>
 
@@ -73,17 +73,17 @@ export default {
       return new Promise((resolve, reject) => {
         // this.$refs['form'].validate((valid) => {
         //   if (valid) {
-            this.$http.post(this.$apis.role.saveRoleUsers, {
-              roleId: this.formItem.roleId,
-              userIds: this.formItem.userIds.join(',')
-            }).then(res => {
-              resolve(res)
-            }).catch(function (err) {
-              reject(err)
-            })
-          // } else {
-          //   resolve(false)
-          // }
+        this.$http.post(this.$apis.role.saveRoleUsers, {
+          roleId: this.formItem.roleId,
+          userIds: this.formItem.userIds.join(',')
+        }).then(res => {
+          resolve(res)
+        }).catch(function (err) {
+          reject(err)
+        })
+        // } else {
+        //   resolve(false)
+        // }
         // })
       })
     },

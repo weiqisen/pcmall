@@ -107,8 +107,8 @@ export default {
     }
   },
   methods: {
-    showTotal (total, range){
-      return "总"+total+"条数"
+    showTotal (total, range) {
+      return '总' + total + '条数'
     },
     // 请求数据
     getData () {

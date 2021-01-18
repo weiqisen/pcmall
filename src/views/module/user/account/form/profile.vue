@@ -57,15 +57,15 @@
           rows="4"
           placeholder="请输入个人简介"
           v-decorator="[
-          'userDesc',
+            'userDesc',
             {rules: [{ required: false, message: '请输入个人简介' },{validator: valiDescCity}]}
           ]" />
       </a-form-item>
       <a-form-item
-              label=" "
-              :labelCol="{lg: {span: 5}, sm: {span: 5}}"
-              :wrapperCol="{lg: {span: 16}, sm: {span: 16} }">
-      <a-button @click="handleSubmit">保存</a-button>
+        label=" "
+        :labelCol="{lg: {span: 5}, sm: {span: 5}}"
+        :wrapperCol="{lg: {span: 16}, sm: {span: 16} }">
+        <a-button @click="handleSubmit">保存</a-button>
       </a-form-item>
     </a-form>
   </div>
@@ -82,34 +82,34 @@ export default {
     }
   },
   methods: {
-    validateCity (rule,value,callback) {
-      if(value.length>150){
+    validateCity (rule, value, callback) {
+      if (value.length > 150) {
         callback('居住地长度超过150个字符！')
-      }else {
+      } else {
         callback()
       }
     },
-    valiDescCity (rule,value,callback) {
-      if(value.length>100){
+    valiDescCity (rule, value, callback) {
+      if (value.length > 100) {
         callback('个人简介长度超过100个字符！')
-      }else {
+      } else {
         callback()
       }
     },
     validateEmail (rule, value, callback) {
       const reg = this.$rules.emailRule
       // 邮箱
-      if(value) {
+      if (value) {
         if (!reg.test(value)) {
           callback(this.$rules.emailRuleMsg)
         } else {
-          if(value.length>70){
+          if (value.length > 70) {
             callback('邮箱长度超过70个字符！')
-          }else {
+          } else {
             callback()
           }
         }
-      }else{
+      } else {
         callback()
       }
     },
@@ -139,7 +139,7 @@ export default {
       }
       const { form: { setFieldsValue } } = this
       this.$nextTick(() => {
-        setFieldsValue(pick(this.formItem, ['nickName','mobile','email','city','userDesc']))
+        setFieldsValue(pick(this.formItem, ['nickName', 'mobile', 'email', 'city', 'userDesc']))
       })
     },
     handleReset () {
@@ -156,11 +156,11 @@ export default {
               mobile: values.mobile,
               email: values.email,
               city: values.city,
-              userDesc: values.userDesc,
+              userDesc: values.userDesc
             })
             this.$http.post(this.$apis.user.updateCurrent, this.formItem, this).then(res => {
-              if (res.code===0){
-                this.$store.commit('SET_NAME', {name:this.formItem.nickName,welcome:'修改个人资料成功！'})
+              if (res.code === 0) {
+                this.$store.commit('SET_NAME', { name: this.formItem.nickName, welcome: '修改个人资料成功！' })
                 this.$notification.open({
                   message: '操作',
                   description: '修改个人资料成功！'

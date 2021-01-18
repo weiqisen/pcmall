@@ -7,32 +7,32 @@
           showSearch
           :dataSource="selectApis"
           :listStyle="{
-                      width: '46%',
-                      height: '350px',
-                    }"
+            width: '46%',
+            height: '350px',
+          }"
           :targetKeys="formItem.authorityIds"
           @change="handleTransferChange"
           :render="item=>`${item.title}`">
-                  <span slot="notFoundContent">
-                    没数据
-                  </span>
+          <span slot="notFoundContent">
+            没数据
+          </span>
         </a-transfer>
       </a-form-item>
     </a-form>
 
-<!--    <Form ref="form" :model="formItem">-->
-<!--      <FormItem prop="authorities">-->
-<!--        <Transfer-->
-<!--          :data="selectUsers"-->
-<!--          :list-style="{width: '45%',height: '480px'}"-->
-<!--          :titles="['选择用户', '已选择用户']"-->
-<!--          :render-format="transferRender"-->
-<!--          :target-keys="formItem.userIds"-->
-<!--          @on-change="handleTransferChange"-->
-<!--          filterable>-->
-<!--        </Transfer>-->
-<!--      </FormItem>-->
-<!--    </Form>-->
+    <!--    <Form ref="form" :model="formItem">-->
+    <!--      <FormItem prop="authorities">-->
+    <!--        <Transfer-->
+    <!--          :data="selectUsers"-->
+    <!--          :list-style="{width: '45%',height: '480px'}"-->
+    <!--          :titles="['选择用户', '已选择用户']"-->
+    <!--          :render-format="transferRender"-->
+    <!--          :target-keys="formItem.userIds"-->
+    <!--          @on-change="handleTransferChange"-->
+    <!--          filterable>-->
+    <!--        </Transfer>-->
+    <!--      </FormItem>-->
+    <!--    </Form>-->
   </div>
 </template>
 
@@ -109,9 +109,9 @@ export default {
     //   })
     // },
 
-    handleTransfer(roleId){
-      this.selectApis=[]
-      this.authorityIds=[]
+    handleTransfer (roleId) {
+      this.selectApis = []
+      this.authorityIds = []
       if (!roleId) {
         return
       }

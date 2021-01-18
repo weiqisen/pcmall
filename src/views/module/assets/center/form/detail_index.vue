@@ -26,14 +26,14 @@
         </a-form>
       </div>
       <s-table
-              ref="table"
-              size="default"
-              rowKey="alarmId"
-              :columns="columns"
-              :data="loadData"
+        ref="table"
+        size="default"
+        rowKey="alarmId"
+        :columns="columns"
+        :data="loadData"
       >
         <span slot="alarmType" slot-scope="text">
-          <span>{{text | alarmTypeFilter}}</span>
+          <span>{{ text | alarmTypeFilter }}</span>
         </span>
         <span slot="alatmStaus" slot-scope="text">
           <a-badge :status="text | alarmStatusFilter" :text="text | statusFilter" />
@@ -54,154 +54,154 @@
 </template>
 
 <script>
-  import { STable } from '@/components'
-  import { getRoleList, getServiceList } from '@/api/manage'
-  const statusMap = {
-    0: {
-      status: 'error',
-      text: '未处理'
-    },
-    1: {
-      status: 'processing',
-      text: '已处理'
-    },
-    3: {
-      status: 'default',
-      text: '待处理'
-    }
+import { STable } from '@/components'
+import { getRoleList, getServiceList } from '@/api/manage'
+const statusMap = {
+  0: {
+    status: 'error',
+    text: '未处理'
+  },
+  1: {
+    status: 'processing',
+    text: '已处理'
+  },
+  3: {
+    status: 'default',
+    text: '待处理'
   }
+}
 
-  export default {
-    name: 'DetailIndex',
-    components: {
-      STable
-    },
-    data () {
-      return {
-        mdl: {},
-        // 高级搜索 展开/关闭
-        advanced: false,
-        // 查询参数
-        queryParam: {},
-        // 表头
-        columns: [
-          {
-            title: '告警类型',
-            dataIndex: 'alarmType',
-            scopedSlots: { customRender: 'alarmType' }
-          },
-          {
-            title: '告警内容',
-            dataIndex: 'content'
-          },
-          {
-            title: '状态',
-            dataIndex: 'status',
-            scopedSlots: { customRender: 'alatmStaus' }
-          },
-          {
-            title: '创建时间',
-            dataIndex: 'createTime'
-          },
-          {
-            title: '操作',
-            dataIndex: 'action',
-            width: '120px',
-            scopedSlots: { customRender: 'action' }
-          }
-        ],
-        // 加载数据方法 必须为 Promise 对象
-        loadData: parameter => {
-          return this.$http.get(this.$apis.alarm.page, Object.assign(parameter, this.queryParam), this).then(res => {
-            res.data.current = parseInt(res.data.current)
-            res.data.total = parseInt(res.data.total)
-            res.data.size = parseInt(res.data.size)
-            res.data.pages = parseInt(res.data.pages)
-            return res
-          })
+export default {
+  name: 'DetailIndex',
+  components: {
+    STable
+  },
+  data () {
+    return {
+      mdl: {},
+      // 高级搜索 展开/关闭
+      advanced: false,
+      // 查询参数
+      queryParam: {},
+      // 表头
+      columns: [
+        {
+          title: '告警类型',
+          dataIndex: 'alarmType',
+          scopedSlots: { customRender: 'alarmType' }
+        },
+        {
+          title: '告警内容',
+          dataIndex: 'content'
+        },
+        {
+          title: '状态',
+          dataIndex: 'status',
+          scopedSlots: { customRender: 'alatmStaus' }
+        },
+        {
+          title: '创建时间',
+          dataIndex: 'createTime'
+        },
+        {
+          title: '操作',
+          dataIndex: 'action',
+          width: '120px',
+          scopedSlots: { customRender: 'action' }
         }
-      }
-    },
-    filters: {
-      statusFilter (type) {
-        return statusMap[type].text
-      },
-      alarmStatusFilter (type) {
-        return statusMap[type].status
-      },
-      alarmTypeFilter (type) {
-        if(type==='1'){
-          return "以太网异常"
-        }else if(type==='2'){
-          return "Modem无服务"
-        }else if(type==='3'){
-          return "内存满"
-        }else if(type==='4'){
-          return "no data"
-        }else if(type==='5'){
-          return "掉卡"
-        }else{
-          return ""
-        }
-      }
-
-    },
-    computed: {
-      title () {
-        return this.$route.meta.title
-      }
-    },
-    created () {
-      // this.tableOption()
-      // getRoleList({ t: new Date() })
-    },
-    methods: {
-      // tableOption () {
-      //   if (!this.optionAlertShow) {
-      //     this.options = {
-      //       alert: { show: true, clear: () => { this.selectedRowKeys = [] } },
-      //       rowSelection: {
-      //         selectedRowKeys: this.selectedRowKeys,
-      //         onChange: this.onSelectChange
-      //       }
-      //     }
-      //     this.optionAlertShow = true
-      //   } else {
-      //     this.options = {
-      //       alert: false,
-      //       rowSelection: null
-      //     }
-      //     this.optionAlertShow = false
-      //   }
-      // },
-
-      // handleEdit (record) {
-      //   this.$nextTick(() => {
-      //     this.$refs.modal.edit(record)
-      //   })
-      // },
-      // handleView (record,status) {
-      //   this.$refs.DetailModel.edit(record,status)
-      //   // this.$http.delete(this.$apis.role.remove, {
-      //   //   roleId: record.roleId
-      //   // }, this).then(res => {
-      //   //   this.handleOk ()
-      //   // })
-      // },
-      handleOk (record,status) {
-        this.queryParam.name = status
-        this.queryParam.deviceId = record.deviceId
-        this.$refs.table.refresh()
-      },
-      onSelectChange (selectedRowKeys, selectedRows) {
-        this.selectedRowKeys = selectedRowKeys
-        this.selectedRows = selectedRows
-      },
-      toggleAdvanced () {
-        this.advanced = !this.advanced
-      },
-      resetSearchForm () {
+      ],
+      // 加载数据方法 必须为 Promise 对象
+      loadData: parameter => {
+        return this.$http.get(this.$apis.alarm.page, Object.assign(parameter, this.queryParam), this).then(res => {
+          res.data.current = parseInt(res.data.current)
+          res.data.total = parseInt(res.data.total)
+          res.data.size = parseInt(res.data.size)
+          res.data.pages = parseInt(res.data.pages)
+          return res
+        })
       }
     }
+  },
+  filters: {
+    statusFilter (type) {
+      return statusMap[type].text
+    },
+    alarmStatusFilter (type) {
+      return statusMap[type].status
+    },
+    alarmTypeFilter (type) {
+      if (type === '1') {
+        return '以太网异常'
+      } else if (type === '2') {
+        return 'Modem无服务'
+      } else if (type === '3') {
+        return '内存满'
+      } else if (type === '4') {
+        return 'no data'
+      } else if (type === '5') {
+        return '掉卡'
+      } else {
+        return ''
+      }
+    }
+
+  },
+  computed: {
+    title () {
+      return this.$route.meta.title
+    }
+  },
+  created () {
+    // this.tableOption()
+    // getRoleList({ t: new Date() })
+  },
+  methods: {
+    // tableOption () {
+    //   if (!this.optionAlertShow) {
+    //     this.options = {
+    //       alert: { show: true, clear: () => { this.selectedRowKeys = [] } },
+    //       rowSelection: {
+    //         selectedRowKeys: this.selectedRowKeys,
+    //         onChange: this.onSelectChange
+    //       }
+    //     }
+    //     this.optionAlertShow = true
+    //   } else {
+    //     this.options = {
+    //       alert: false,
+    //       rowSelection: null
+    //     }
+    //     this.optionAlertShow = false
+    //   }
+    // },
+
+    // handleEdit (record) {
+    //   this.$nextTick(() => {
+    //     this.$refs.modal.edit(record)
+    //   })
+    // },
+    // handleView (record,status) {
+    //   this.$refs.DetailModel.edit(record,status)
+    //   // this.$http.delete(this.$apis.role.remove, {
+    //   //   roleId: record.roleId
+    //   // }, this).then(res => {
+    //   //   this.handleOk ()
+    //   // })
+    // },
+    handleOk (record, status) {
+      this.queryParam.name = status
+      this.queryParam.deviceId = record.deviceId
+      this.$refs.table.refresh()
+    },
+    onSelectChange (selectedRowKeys, selectedRows) {
+      this.selectedRowKeys = selectedRowKeys
+      this.selectedRows = selectedRows
+    },
+    toggleAdvanced () {
+      this.advanced = !this.advanced
+    },
+    resetSearchForm () {
+    }
   }
+}
 </script>

@@ -373,22 +373,22 @@ export const asyncRouterMap = [
         path: '/exception/403',
         name: 'Exception403',
         component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/403'),
-        meta: { title: '403',hidden: true, permission: [ 'exception' ] }
+        meta: { title: '403', hidden: true, permission: [ 'exception' ] }
       },
       {
         path: '/exception/404',
         name: 'Exception404',
         component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404'),
-        meta: { title: '404',hidden: true, permission: [ 'exception' ] }
+        meta: { title: '404', hidden: true, permission: [ 'exception' ] }
       },
       {
         path: '/exception/500',
         name: 'Exception500',
         component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/500'),
-        meta: { title: '500',hidden: true, permission: [ 'exception' ] }
+        meta: { title: '500', hidden: true, permission: [ 'exception' ] }
       }
     ]
-  },
+  }
   //
   // // account
   // {
@@ -545,7 +545,7 @@ export const constantRouterMap = [
     path: '/404',
     name: '404',
     redirect: '/exception/404',
-    component: RouteView,
+    component: RouteView
   }
 ]
 

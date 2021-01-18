@@ -81,7 +81,7 @@ export default {
     }
   },
   methods: {
-    validateToRoleCode (rule, value, callback){
+    validateToRoleCode (rule, value, callback) {
       const reg = this.$rules.enNum4to20
       if (!reg.test(value)) {
         callback(new Error(this.$rules.enNum4to20Msg))
@@ -101,15 +101,15 @@ export default {
     setData (data) {
       this.isAdd = true
       if (data && data.roleId) {
-        if(this.formItem.roleId){
-          Object.assign(this.formItem,this.form.getFieldsValue())
-        }else{
+        if (this.formItem.roleId) {
+          Object.assign(this.formItem, this.form.getFieldsValue())
+        } else {
           Object.assign(this.formItem, {
             roleId: data.roleId,
             roleCode: data.roleCode,
             roleName: data.roleName,
             roleType: data.roleType,
-            status: data.status + "",
+            status: data.status + '',
             roleDesc: data.roleDesc
           })
         }
@@ -117,11 +117,11 @@ export default {
       } else {
         this.formItem = this.getFormItem()
         this.form.resetFields()
-        Object.assign(this.formItem,this.form.getFieldsValue())
+        Object.assign(this.formItem, this.form.getFieldsValue())
       }
       const { form: { setFieldsValue } } = this
       this.$nextTick(() => {
-        setFieldsValue(pick(this.formItem, ['roleCode','roleName','status','roleDesc']))
+        setFieldsValue(pick(this.formItem, ['roleCode', 'roleName', 'status', 'roleDesc']))
       })
     },
     handleReset () {
@@ -139,9 +139,9 @@ export default {
               status: values.status,
               roleDesc: values.roleDesc
             })
-            values.roleId=this.formItem.roleId
+            values.roleId = this.formItem.roleId
             this.$http.post(this.$apis.role.save, this.formItem, this).then(res => {
-              if(res.code===0) {
+              if (res.code === 0) {
                 that.formItem.userId = res.data
                 that.isAdd = false
                 this.$notification.success({
@@ -149,7 +149,7 @@ export default {
                   description: '操作成功',
                   duration: 8
                 })
-              }else{
+              } else {
                 this.$notification.error({
                   message: '提示',
                   description: res.data.message

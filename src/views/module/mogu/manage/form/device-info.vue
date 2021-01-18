@@ -27,41 +27,41 @@
         <span>设备编号信息格式为(CP335C_IMEI)号</span>
       </a-form-item>
       <a-form-item
-              label="设备分布"
-              :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-              :wrapperCol="{lg: {span: 14}, sm: {span: 14} }">
-          <a-select
-            v-decorator="[
-              'distribuId',
-              {rules: [{ required: true, message: '请选择设备分布' }]}
-            ]"
-            placeholder="请选择设备分布">
-            <a-select-option value="1">系统管理</a-select-option>
-            <a-select-option value="10">设备管理</a-select-option>
-          </a-select>
+        label="设备分布"
+        :labelCol="{lg: {span: 7}, sm: {span: 7}}"
+        :wrapperCol="{lg: {span: 14}, sm: {span: 14} }">
+        <a-select
+          v-decorator="[
+            'distribuId',
+            {rules: [{ required: true, message: '请选择设备分布' }]}
+          ]"
+          placeholder="请选择设备分布">
+          <a-select-option value="1">系统管理</a-select-option>
+          <a-select-option value="10">设备管理</a-select-option>
+        </a-select>
       </a-form-item>
       <!--<a-form-item-->
-        <!--label="状态"-->
-        <!--:labelCol="{lg: {span: 7}, sm: {span: 7}}"-->
-        <!--:wrapperCol="{lg: {span: 14}, sm: {span: 14} }">-->
-        <!--<div>-->
-          <!--<a-radio-group buttonStyle="solid" v-decorator="['status' , { initialValue: '1' }]">-->
-            <!--<a-radio-button value="0">禁用</a-radio-button>-->
-            <!--<a-radio-button value="1">正常</a-radio-button>-->
-          <!--</a-radio-group>-->
-        <!--</div>-->
+      <!--label="状态"-->
+      <!--:labelCol="{lg: {span: 7}, sm: {span: 7}}"-->
+      <!--:wrapperCol="{lg: {span: 14}, sm: {span: 14} }">-->
+      <!--<div>-->
+      <!--<a-radio-group buttonStyle="solid" v-decorator="['status' , { initialValue: '1' }]">-->
+      <!--<a-radio-button value="0">禁用</a-radio-button>-->
+      <!--<a-radio-button value="1">正常</a-radio-button>-->
+      <!--</a-radio-group>-->
+      <!--</div>-->
       <!--</a-form-item>-->
       <!--<a-form-item-->
-        <!--label="描述"-->
-        <!--:labelCol="{lg: {span: 7}, sm: {span: 7}}"-->
-        <!--:wrapperCol="{lg: {span: 14}, sm: {span: 14} }">-->
-        <!--<a-textarea-->
-          <!--rows="4"-->
-          <!--placeholder="请输入描述内容"-->
-          <!--v-decorator="[-->
-            <!--'roleDesc',-->
-            <!--{rules: [{ required: true, message: '请输入内容' }]}-->
-          <!--]" />-->
+      <!--label="描述"-->
+      <!--:labelCol="{lg: {span: 7}, sm: {span: 7}}"-->
+      <!--:wrapperCol="{lg: {span: 14}, sm: {span: 14} }">-->
+      <!--<a-textarea-->
+      <!--rows="4"-->
+      <!--placeholder="请输入描述内容"-->
+      <!--v-decorator="[-->
+      <!--'roleDesc',-->
+      <!--{rules: [{ required: true, message: '请输入内容' }]}-->
+      <!--]" />-->
       <!--</a-form-item>-->
     </a-form>
   </div>
@@ -98,7 +98,7 @@ export default {
       return {
         deviceId: '',
         deviceName: '',
-        deviceSn: "CP335C_",
+        deviceSn: 'CP335C_',
         distribuId: ''
       }
     },
@@ -118,7 +118,7 @@ export default {
       }
       const { form: { setFieldsValue } } = this
       this.$nextTick(() => {
-        setFieldsValue(pick(this.formItem, ['deviceName','deviceSn','distribuId']))
+        setFieldsValue(pick(this.formItem, ['deviceName', 'deviceSn', 'distribuId']))
       })
     },
     handleReset () {
@@ -134,7 +134,7 @@ export default {
               deviceSn: values.deviceSn,
               distribuId: values.distribuId
             })
-            values.deviceId=this.formItem.deviceId
+            values.deviceId = this.formItem.deviceId
             this.$http.post(this.$apis.device.save, this.formItem, this).then(res => {
               resolve(res)
             }).catch(function (err) {

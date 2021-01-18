@@ -141,7 +141,7 @@ export default {
           this.localPagination = Object.assign({}, this.localPagination, {
             current: r.pageNo || r.data.current, // 返回结果中的当前分页数
             total: r.totalCount || r.data.total, // 返回结果中的总记录数
-            showTotal:total => `总共 ${total} 条`,
+            showTotal: total => `总共 ${total} 条`,
             showSizeChanger: this.showSizeChanger,
             pageSize: r.size || r.data.size
           })
@@ -155,9 +155,9 @@ export default {
 
           // 这里用于判断接口是否有返回 r.totalCount 或 this.showPagination = false
           // 当情况满足时，表示数据不满足分页大小，关闭 table 分页功能
-          if(showPage && (showPage === 'auto' || showPage === 'true')){
+          if (showPage && (showPage === 'auto' || showPage === 'true')) {
             this.localPagination.hideOnSinglePage = false
-          }else{
+          } else {
             this.localPagination = false
           }
           this.localDataSource = r.data.records || r.data // 返回结果中的数组数据

@@ -49,7 +49,7 @@ export default {
       const reg2 = /^.{6,18}$/
       if (value === '') {
         callback(new Error('请输入密码'))
-      } else if (this.form.getFieldValue('passwordConfirm')&&value !== this.form.getFieldValue('passwordConfirm')) {
+      } else if (this.form.getFieldValue('passwordConfirm') && value !== this.form.getFieldValue('passwordConfirm')) {
         callback(new Error('两次输入密码不一致'))
       } else if (value !== '' && !reg2.test(value)) {
         callback(new Error('长度6到18个字符'))

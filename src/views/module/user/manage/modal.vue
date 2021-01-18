@@ -56,7 +56,7 @@ export default {
     }
   },
   methods: {
-    edit (data,current) {
+    edit (data, current) {
       this.visible = true
       this.isEdit = false
       this.userName = ''
@@ -68,9 +68,9 @@ export default {
         this.formData = {}
       }
       if (current) {
-        this.handleTabInit(current,0)
+        this.handleTabInit(current, 0)
       } else {
-        this.handleTabInit('form1',0)
+        this.handleTabInit('form1', 0)
       }
       this.visible = true
     },
@@ -88,7 +88,7 @@ export default {
         if (res) {
           this.handleModalChange(false)
           this.visible = false
-          if(res.code===0) {
+          if (res.code === 0) {
             if (that.current === 'form1') {
               that.formData.userId = res.data
               this.isEdit = true
@@ -106,21 +106,21 @@ export default {
         this.$emit('ok')
       }
     },
-    handleTabInit (name,type){
-      this.handleTabRuter(name,type)
+    handleTabInit (name, type) {
+      this.handleTabRuter(name, type)
     },
     handleTabClick (name) {
-      this.handleTabRuter(name,1)
+      this.handleTabRuter(name, 1)
     },
-    handleTabRuter (name,type) {
+    handleTabRuter (name, type) {
       this.$nextTick(() => {
-        if(name===this.current&&type===1){
+        if (name === this.current && type === 1) {
           return
         }
         this.current = name
         this.modalTitle = this.isEdit ? `编辑用户 - ${this.userName}` : '新增用户'
         if (name === 'form1') {
-          this.$refs.form1.setData(this.formData,type)
+          this.$refs.form1.setData(this.formData, type)
         } else if (name === 'form2') {
           this.$refs.form2.setData(this.formData)
         } else if (name === 'form3') {

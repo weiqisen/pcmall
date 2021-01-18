@@ -14,9 +14,9 @@
           placeholder="请输入分布地址名称" />
       </a-form-item>
       <a-form-item
-              label="经度"
-              :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-              :wrapperCol="{lg: {span: 14}, sm: {span: 14} }">
+        label="经度"
+        :labelCol="{lg: {span: 7}, sm: {span: 7}}"
+        :wrapperCol="{lg: {span: 14}, sm: {span: 14} }">
         <a-input
           v-decorator="[
             'lat',
@@ -92,7 +92,7 @@ export default {
       }
       const { form: { setFieldsValue } } = this
       this.$nextTick(() => {
-        setFieldsValue(pick(this.formItem, ['distributionName','lat','lon']))
+        setFieldsValue(pick(this.formItem, ['distributionName', 'lat', 'lon']))
       })
     },
     handleReset () {

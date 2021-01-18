@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { login, getUserInfo,getUserMenu, logout } from '@/api/login'
+import { login, getUserInfo, getUserMenu, logout } from '@/api/login'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
 
@@ -43,7 +43,7 @@ const user = {
     },
     SET_MENUS: (state, menus) => {
       state.menus = menus
-    },
+    }
     // SET_WEBSOCKET (state, websock) {
     //   state.websock = websock
     // }
@@ -54,8 +54,8 @@ const user = {
     Login ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         login(userInfo).then(response => {
-          if(response.code===0) {
-            const result = response.data;
+          if (response.code === 0) {
+            const result = response.data
             Vue.ls.set(ACCESS_TOKEN, result.access_token, 7 * 24 * 60 * 60 * 1000)
             commit('SET_TOKEN', result.access_token)
           }

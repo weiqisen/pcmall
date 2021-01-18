@@ -35,10 +35,10 @@
                   :targetKeys="authorityIds"
                   @change="handleTransferChange"
                   :render="item=>`${item.title}`">
-                <span slot="notFoundContent">
-                  没数据
-                </span>
-              </a-transfer>
+                  <span slot="notFoundContent">
+                    没数据
+                  </span>
+                </a-transfer>
               </template>
               <a @click="handleTransfer(record)">接口授权</a>
             </a-popconfirm>
@@ -58,11 +58,11 @@
             v-if="record.editable"
             :value="text"
             @change="e => handleChange(e.target.value, record, col)"/>
-          <template v-else>{{text}}</template>
+          <template v-else>{{ text }}</template>
         </div>
       </template>
       <span slot="status" slot-scope="text">
-        <a-tag :color="text | statusTypeFilter">{{text | statusFilter}}</a-tag>
+        <a-tag :color="text | statusTypeFilter">{{ text | statusFilter }}</a-tag>
       </span>
     </s-table>
 
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import {STable} from '@/components'
+import { STable } from '@/components'
 const statusMap = {
   0: {
     status: '',
@@ -143,7 +143,7 @@ export default {
       pagination: false,
       selectApis: [],
       authorityIds: [],
-      addButton:false
+      addButton: false
     }
   },
   filters: {
@@ -170,8 +170,8 @@ export default {
         //   userId: data.userId
         // })
         // this.handleLoadUserGranted(data.userId)
-        this.value=data
-        this.queryParam.menuId=data.menuId
+        this.value = data
+        this.queryParam.menuId = data.menuId
         this.handleReset()
         // this.$refs.table.refresh(true)
         // this.handleSearch ()
@@ -197,7 +197,7 @@ export default {
     handleReset () {
       this.$refs.table.refresh(true)
     },
-    tableOption() {
+    tableOption () {
       this.options = {
         rowSelection: {
           selectedRowKeys: this.selectedRowKeys,
@@ -205,46 +205,45 @@ export default {
         }
       }
     },
-    handleChange(value, record, column) {
+    handleChange (value, record, column) {
       if (value) {
-        record[column] = value;
+        record[column] = value
       }
     },
-    edit(record) {
-      const newData = [...this.$refs.table.localDataSource];
+    edit (record) {
+      const newData = [...this.$refs.table.localDataSource]
       newData.forEach(item => {
-        if(item.editable){
-          item.editable=false
+        if (item.editable) {
+          item.editable = false
         }
       })
-      const target = newData.filter(item => record.actionId === item.actionId)[0];
+      const target = newData.filter(item => record.actionId === item.actionId)[0]
       if (target) {
-        target.editable = true;
+        target.editable = true
         this.$refs.table.localDataSource = newData
       }
     },
-    cancel(record){
+    cancel (record) {
       debugger
-      const newData = [...this.$refs.table.localDataSource];
+      const newData = [...this.$refs.table.localDataSource]
       const target = newData.filter(item => {
-        if(item.actionId){
+        if (item.actionId) {
           return true
         }
-      });
-      const current = newData.filter(item=>record.actionId===item.actionId)[0]
+      })
+      const current = newData.filter(item => record.actionId === item.actionId)[0]
       if (current) {
-        delete current.editable;
+        delete current.editable
         this.$refs.table.localDataSource = target
       }
-
     },
-    save(record) {
-      const newData = [...this.$refs.table.localDataSource];
-      const target = newData.filter(item => record.actionId === item.actionId)[0];
+    save (record) {
+      const newData = [...this.$refs.table.localDataSource]
+      const target = newData.filter(item => record.actionId === item.actionId)[0]
       if (target) {
-        delete target.editable;
-        if(!record.menuId){
-          record.menuId=this.value.menuId
+        delete target.editable
+        if (!record.menuId) {
+          record.menuId = this.value.menuId
         }
         this.$http.post(this.$apis.action.save, Object.assign(target, record), this).then(res => {
           this.handleReset()
@@ -259,17 +258,17 @@ export default {
         this.handleReset()
       })
     },
-    handleAdd() {
+    handleAdd () {
       // this.addButton=false
       const newData = {
         editable: true,
         actionCode: this.value.menuCode,
-        actionName: "",
+        actionName: '',
         status: 1,
-        priority: 0,
+        priority: 0
       }
       debugger
-      this.$refs.table.localDataSource = [newData,...this.$refs.table.localDataSource]
+      this.$refs.table.localDataSource = [newData, ...this.$refs.table.localDataSource]
     },
     getCheckedAuthorities () {
       const menuIds = []
@@ -278,14 +277,14 @@ export default {
       })
       return menuIds.concat(this.formItem.grantActions)
     },
-    handleTransfer(record){
-      this.selectApis=[]
-      this.authorityIds=[]
+    handleTransfer (record) {
+      this.selectApis = []
+      this.authorityIds = []
       if (!record.actionId) {
         return
       }
       const that = this
-      const p1 = this.$http.get(this.$apis.api.actionList, {actionId: record.actionId,actionType: this.value.menuType}, this)
+      const p1 = this.$http.get(this.$apis.api.actionList, { actionId: record.actionId, actionType: this.value.menuType }, this)
       // const p2 = this.$http.get(this.$apis.authority.action, { actionId: record.actionId }, this)
       Promise.all([p1]).then(function (values) {
         const res1 = values[0]
@@ -311,7 +310,7 @@ export default {
         // }
       })
     },
-    handleTransferConfirm(record){
+    handleTransferConfirm (record) {
       if (record && record.actionId) {
         this.$http.post(this.$apis.action.grantActionApi, {
           actionId: record.actionId,
@@ -324,12 +323,12 @@ export default {
         })
       }
     },
-    handleTransferCancel(){
+    handleTransferCancel () {
       this.selectApis = []
       this.authorityIds = []
     },
-    handleTransferChange(targetKeys, direction, moveKeys){
-      this.authorityIds=targetKeys
+    handleTransferChange (targetKeys, direction, moveKeys) {
+      this.authorityIds = targetKeys
     }
   },
   created () {

@@ -2,11 +2,11 @@
   <div>
     <a-form @submit="handleSubmit" :form="form">
       <!--<a-form-item-->
-        <!--label="过期时间"-->
-        <!--:validate-status="formItem.isExpired?'success':'warning'"-->
-        <!--:labelCol="{lg: {span: 7}, sm: {span: 7}}"-->
-        <!--:wrapperCol="{lg: {span: 14}, sm: {span: 14} }">-->
-        <!--<a-date-picker v-model="formItem.expireTime" style="width: 100%"/>-->
+      <!--label="过期时间"-->
+      <!--:validate-status="formItem.isExpired?'success':'warning'"-->
+      <!--:labelCol="{lg: {span: 7}, sm: {span: 7}}"-->
+      <!--:wrapperCol="{lg: {span: 14}, sm: {span: 14} }">-->
+      <!--<a-date-picker v-model="formItem.expireTime" style="width: 100%"/>-->
       <!--</a-form-item>-->
 
       <a-form-item
@@ -14,45 +14,45 @@
         :labelCol="{lg: {span: 7}, sm: {span: 7}}"
         :wrapperCol="{lg: {span: 14}, sm: {span: 17} }">
         <div style="height: 350px;overflow: auto;">
-            <a-tree
-              checkable
-              v-model="checkRowKeys"
-              :treeData="selectMenus"
-              @check="getCheckedAuthorities"
-              :replaceFields="replaceFields"/>
+          <a-tree
+            checkable
+            v-model="checkRowKeys"
+            :treeData="selectMenus"
+            @check="getCheckedAuthorities"
+            :replaceFields="replaceFields"/>
         </div>
       </a-form-item>
 
-        <!--<vxe-table-->
-          <!--border-->
-          <!--resizable-->
-          <!--height="450"-->
-          <!--ref="tree"-->
-          <!--row-id="menuId"-->
-          <!--:tree-config="{children: 'children',expandAll: true}"-->
-          <!--:select-config="{labelField: 'menuName',checkRowKeys: checkRowKeys}"-->
-          <!--:data.sync="selectMenus">-->
-          <!--<vxe-table-column type="selection" field="menuId" title="菜单" tree-node width="220"></vxe-table-column>-->
-          <!--<vxe-table-column field="operation" title="操作">-->
-            <!--<template v-slot="{ row }">-->
-              <!--<CheckboxGroup v-model="formItem.grantActions">-->
-                <!--<Checkbox v-for="(item,index) in row.actionList" :key="index" :label="item.authorityId">-->
-                  <!--<span :title="item.actionDesc">{{ item.actionName }}</span>-->
-                <!--</Checkbox>-->
-              <!--</CheckboxGroup>-->
-            <!--</template>-->
-          <!--</vxe-table-column>-->
-        <!--</vxe-table>-->
+      <!--<vxe-table-->
+      <!--border-->
+      <!--resizable-->
+      <!--height="450"-->
+      <!--ref="tree"-->
+      <!--row-id="menuId"-->
+      <!--:tree-config="{children: 'children',expandAll: true}"-->
+      <!--:select-config="{labelField: 'menuName',checkRowKeys: checkRowKeys}"-->
+      <!--:data.sync="selectMenus">-->
+      <!--<vxe-table-column type="selection" field="menuId" title="菜单" tree-node width="220"></vxe-table-column>-->
+      <!--<vxe-table-column field="operation" title="操作">-->
+      <!--<template v-slot="{ row }">-->
+      <!--<CheckboxGroup v-model="formItem.grantActions">-->
+      <!--<Checkbox v-for="(item,index) in row.actionList" :key="index" :label="item.authorityId">-->
+      <!--<span :title="item.actionDesc">{{ item.actionName }}</span>-->
+      <!--</Checkbox>-->
+      <!--</CheckboxGroup>-->
+      <!--</template>-->
+      <!--</vxe-table-column>-->
+      <!--</vxe-table>-->
       <!--</a-form-item>-->
     </a-form>
   </div>
 </template>
 
 <script>
-import moment from 'moment';
+import moment from 'moment'
 export default {
   name: 'RoleAuth',
-  components:{
+  components: {
     moment
   },
   data () {
@@ -63,9 +63,9 @@ export default {
       checkRowKeys: [],
       formItem: this.getFormItem(),
       form: this.$form.createForm(this),
-      replaceFields:{
-        key:'menuId',
-        title:'menuName'
+      replaceFields: {
+        key: 'menuId',
+        title: 'menuName'
       }
     }
   },
@@ -90,8 +90,8 @@ export default {
     handleReset () {
       this.form.resetFields()
       this.formItem = this.getFormItem()
-      this.submitMenus=[]
-      this.checkRowKeys=[]
+      this.submitMenus = []
+      this.checkRowKeys = []
     },
     /* 提交授权 */
     handleSubmit () {
@@ -114,7 +114,7 @@ export default {
       })
     },
     /* 获取已选择节点 */
-    getCheckedAuthorities (node,event) {
+    getCheckedAuthorities (node, event) {
       this.submitMenus = node
       // this.$refs['tree'].getSelectRecords().map(item => {
       //   menuIds.push(item.authorityId)
@@ -153,7 +153,7 @@ export default {
             // that.formItem.grantActions = actions
             // 时间
             if (res2.data.length > 0) {
-              that.formItem.expireTime = res2.data[0].expireTime?moment(res2.data[0].expireTime,'YYYY-MM-DD HH:mm:ss'):null;
+              that.formItem.expireTime = res2.data[0].expireTime ? moment(res2.data[0].expireTime, 'YYYY-MM-DD HH:mm:ss') : null
               that.formItem.isExpired = res2.data[0].isExpired
             }
           }
@@ -163,8 +163,8 @@ export default {
             if (that.formItem.grantMenus.includes(item.authorityId)) {
               checkRowKeys.push(item.menuId)
             }
-            if(item.actionList&&item.actionList.length>0){
-              item.children=item.actionList
+            if (item.actionList && item.actionList.length > 0) {
+              item.children = item.actionList
             }
           })
           that.checkRowKeys = checkRowKeys
